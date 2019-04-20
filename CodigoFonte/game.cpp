@@ -173,7 +173,7 @@ bool Jogo::VerificaBotao(sf::Vector2i position, sf::Sprite Sprite){
 
 bool Jogo::AtualizaBotao(sf::Event Event, sf::Vector2i position, sf::Sprite &Sprite, sf::IntRect rectSourceSprite){
     int flag = 0;
-    if (Event.type == sf::Event::MouseButtonPressed){
+    if (Event.type == sf::Event::MouseButtonPressed || sf::Joystick::isButtonPressed(0, 2)){
         if (Event.mouseButton.button == sf::Mouse::Left){
             if(VerificaBotao(position, Sprite)){
                 rectSourceSprite.top = 142;
@@ -1038,7 +1038,7 @@ void Jogo::TelaCenarioPokemonInicial(){
 
 void Jogo::TelaCenarioPrincipal(){
     PosicaoMouse();
-
+    
     if(Event.type == sf::Event::MouseButtonPressed){
         if(VerificaBotao(position, SomSprite)){
             if(Music == 0){
@@ -1689,7 +1689,7 @@ void Jogo::Run(){
     CarregaImagens();
     CarregaSons();
     //PikachuSound.play();
-
+    
     while(window.isOpen()){
         Eventos();
 
@@ -1710,6 +1710,7 @@ void Jogo::Run(){
             }
             Menu();
         }
+
         //Jogo
         else if(Start){
             srand(time(NULL));
