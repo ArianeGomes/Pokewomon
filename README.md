@@ -26,9 +26,16 @@ Instalando SFML:
 sudo apt-get install libsfml-dev
 ```
 
+Clonando repositório:
+
+```sh
+git clone git@github.com:ArianeGomes/Pokewomon.git
+```
+
 Compilando arquivos:
 
 ```sh
-g++ -c /your/path/main.cpp /your/path/node.cpp /your/path/lista.cpp /your/path/pokemon.cpp /your/path/game.cpp 
-g++ main.o node.o lista.o pokemon.o game.o -o pokewomon -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+cd your/path/Pokewomon/CodigoFonte/
+make
+./pokewomon
 ```
