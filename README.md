@@ -1,8 +1,7 @@
 # Pokéwomon
 > Pokéwomon é um jogo baseado em Pokémon que possui o objetivo de incluir a comunidade feminina nos jogos e na computação. Devido a isso, foi desenvolvido somente com personagens mulheres e pokémons específicos.
 
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
+## Descrição
 
 O jogo Pokéwomon possui como objetivo a captura de variados pokémons através de
 lutas com pokémons selvagens para que, então, o jogador se direcione ao Ginásio com o intuito
