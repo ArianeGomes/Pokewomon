@@ -54,9 +54,10 @@ class Jogo{
         void Menu();
         void Instrucao();
         void TelaCenarioPokemonInicial();
-        void TelaCenarioPrincipal();
+        void TelaPrimeiroCenario();
+        void TelaSegundoCenario();
         void TelaCenarioCentro();
-        void TelaCenarioGinasio();
+        void TelaCenarioGinasio1();
         void TelaCenarioLuta();
         void TelaCenarioBatalha();
         void TelaCenarioGanhou();
@@ -83,8 +84,8 @@ class Jogo{
         sf::Texture CenarioEscolhaPokemonTexture;
         sf::Sprite CenarioEscolhaPokemonSprite;
         //Cenario principal
-        sf::Texture PersonagemTexture, Cenario1Texture, CentroTexture, Centro2Texture;
-        sf::Sprite PersonagemSprite, Cenario1Sprite, CentroSprite, Centro2Sprite;
+        sf::Texture PersonagemTexture, PrimeiroCenarioTexture, CentroTexture, Centro2Texture;
+        sf::Sprite PersonagemSprite, PrimeiroCenarioSprite, CentroSprite, Centro2Sprite;
         sf::Texture MatinhoTexture, Cerca1Texture, Cerca2Texture, RioTexture;
         sf::Sprite MatinhoSprite[16][35], Cerca1Sprite, Cerca2Sprite, RioSprite;
         //Placas e avisos - Cenario principal
@@ -139,7 +140,7 @@ class Jogo{
         //Botão
         int Sair, Start, Voltar, Instrucoes, Atacar, Fugir, Pokemon0, Pokemon1, Pokemon2;
         //Telas
-        int PokemonInicial, CenarioPrincipal, CenarioGinasio, CenarioCentro;
+        int PokemonInicial, PrimeiroCenario, SegundoCenario, CenarioGinasio1, CenarioCentro;
         int CenarioLuta, CenarioGanhou, CenarioPerdeu, CenarioBatalha;
         //Moedas e pokebolas
         int moedas, pokebolas;

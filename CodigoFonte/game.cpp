@@ -37,8 +37,9 @@ Jogo::Jogo(){
     Pokemon2 = 0;
     //Telas
     PokemonInicial = 1;
-    CenarioPrincipal = 0;
-    CenarioGinasio = 0;
+    PrimeiroCenario = 0;
+    SegundoCenario = 0;
+    CenarioGinasio1 = 0;
     CenarioCentro = 0;
     CenarioLuta = 0;
     CenarioBatalha = 0;
@@ -114,8 +115,9 @@ void Jogo::Reseta(){
     Pokemon2 = 0;
     //Telas
     PokemonInicial = 1;
-    CenarioPrincipal = 0;
-    CenarioGinasio = 0;
+    PrimeiroCenario = 0;
+    SegundoCenario = 0;
+    CenarioGinasio1 = 0;
     CenarioCentro = 0;
     CenarioLuta = 0;
     CenarioBatalha = 0;
@@ -208,19 +210,19 @@ void Jogo::CarregaImagens(){
     CenarioMenuSprite.setTexture(CenarioMenuTexture);
 
     //Play
-    PlayTexture.loadFromFile("Imagens/BotaoJogar.png");
+    PlayTexture.loadFromFile("Imagens/Botoes/BotaoJogar.png");
     rectSourceSprite = sf::IntRect(0, 0, 215, 79); //Corta a imagem
     PlaySprite = sf::Sprite(PlayTexture, rectSourceSprite);
     PlaySprite.setPosition(50, AlturaTela/2);
 
     //Instruções
-    InstruTexture.loadFromFile("Imagens/BotaoInstrucoes.png");
+    InstruTexture.loadFromFile("Imagens/Botoes/BotaoInstrucoes.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     InstruSprite = sf::Sprite(InstruTexture, rectSourceSprite);
     InstruSprite.setPosition(50, AlturaTela/2 + 80);
 
     //Sair
-    SairTexture.loadFromFile("Imagens/BotaoSair.png");
+    SairTexture.loadFromFile("Imagens/Botoes/BotaoSair.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     SairSprite = sf::Sprite(SairTexture, rectSourceSprite);
     SairSprite.setPosition(50, AlturaTela/2 + 160);
@@ -230,7 +232,7 @@ void Jogo::CarregaImagens(){
     CenarioInstruSprite.setTexture(CenarioInstruTexture);
 
     //Botão voltar no cenário instruções
-    VoltarTexture.loadFromFile("Imagens/BotaoVoltar.png");
+    VoltarTexture.loadFromFile("Imagens/Botoes/BotaoVoltar.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     VoltarSprite = sf::Sprite(VoltarTexture, rectSourceSprite);
     VoltarSprite.setPosition(LarguraTela - 250, AlturaTela - 120);
@@ -242,29 +244,31 @@ void Jogo::CarregaImagens(){
 
     //Pokemons iniciais
     //Pokemon1
-    Pokemon1Texture.loadFromFile("Imagens/BotaoPokemon1.png");
+    Pokemon1Texture.loadFromFile("Imagens/Botoes/BotaoPokemon1.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     Pokemon1Sprite = sf::Sprite(Pokemon1Texture, rectSourceSprite);
     Pokemon1Sprite.setPosition(124, 32);
 
     //Pokemon0
-    Pokemon0Texture.loadFromFile("Imagens/BotaoPokemon0.png");
+    Pokemon0Texture.loadFromFile("Imagens/Botoes/BotaoPokemon0.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     Pokemon0Sprite = sf::Sprite(Pokemon0Texture, rectSourceSprite);
     Pokemon0Sprite.setPosition(238, 493);
 
     //Pokemon2
-    Pokemon2Texture.loadFromFile("Imagens/BotaoPokemon2.png");
+    Pokemon2Texture.loadFromFile("Imagens/Botoes/BotaoPokemon2.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     Pokemon2Sprite = sf::Sprite(Pokemon2Texture, rectSourceSprite);
     Pokemon2Sprite.setPosition(585, 246);
 
     //***************************************************Cenário de capturar pokemon
-    Cenario1Texture.loadFromFile("Imagens/CenarioPrincipal.png");
-    Cenario1Sprite.setTexture(Cenario1Texture);
+    PrimeiroCenarioTexture.loadFromFile("Imagens/Cenarios/PrimeiroCenario.png");
+    PrimeiroCenarioSprite.setTexture(PrimeiroCenarioTexture);
+
+
 
     //Centro jogo
-    CentroTexture.loadFromFile("Imagens/Centro.png");
+    CentroTexture.loadFromFile("Imagens/Colisao/Centro.png");
     CentroSprite.setTexture(CentroTexture);
     CentroSprite.setScale(EscalaCentro, EscalaCentro);
     CentroSprite.setPosition(300,7);
@@ -272,7 +276,7 @@ void Jogo::CarregaImagens(){
     LarguraCentroAtualizada = LarguraCentro * EscalaCentro;
 
     //Centro jogo ------- Gambiarra
-    Centro2Texture.loadFromFile("Imagens/Centro2.png");
+    Centro2Texture.loadFromFile("Imagens/Colisao/Centro2.png");
     Centro2Sprite.setTexture(Centro2Texture);
     Centro2Sprite.setScale(EscalaCentro, EscalaCentro);
     Centro2Sprite.setPosition(300,7);
@@ -280,22 +284,22 @@ void Jogo::CarregaImagens(){
     LarguraCentroAtualizada = LarguraCentro * EscalaCentro;
 
     //Placa centro jogo
-    PlacaCentroTexture.loadFromFile("Imagens/PlacaCentro.png");
+    PlacaCentroTexture.loadFromFile("Imagens/Colisao/PlacaCentro.png");
     PlacaCentroSprite.setTexture(PlacaCentroTexture);
     PlacaCentroSprite.setPosition(272,128);
 
     //Aviso da placa do centro
-    AvisoPlacaCentroTexture.loadFromFile("Imagens/AvisoCentro.png");
+    AvisoPlacaCentroTexture.loadFromFile("Imagens/Avisos/AvisoCentro.png");
     AvisoPlacaCentroSprite.setTexture(AvisoPlacaCentroTexture);
     AvisoPlacaCentroSprite.setPosition(285.5,500);
 
     //Placa ginásio
-    PlacaCenario2Texture.loadFromFile("Imagens/PlacaCenario2.png");
+    PlacaCenario2Texture.loadFromFile("Imagens/Colisao/PlacaCenario2.png");
     PlacaCenario2Sprite.setTexture(PlacaCenario2Texture);
     PlacaCenario2Sprite.setPosition(784,122);
 
     //Aviso da placa do ginásio
-    AvisoPlacaCenario2Texture.loadFromFile("Imagens/AvisoGinasio.png");
+    AvisoPlacaCenario2Texture.loadFromFile("Imagens/Avisos/AvisoGinasio.png");
     AvisoPlacaCenario2Sprite.setTexture(AvisoPlacaCenario2Texture);
     AvisoPlacaCenario2Sprite.setPosition(285.5,500);
 
@@ -318,30 +322,30 @@ void Jogo::CarregaImagens(){
     }
 
     //Cerca
-    Cerca1Texture.loadFromFile("Imagens/Cerca1.png");
+    Cerca1Texture.loadFromFile("Imagens/Colisao/Cerca1.png");
     Cerca1Sprite.setTexture(Cerca1Texture);
     Cerca1Sprite.setPosition(0,128);
 
-    Cerca2Texture.loadFromFile("Imagens/Cerca2.png");
+    Cerca2Texture.loadFromFile("Imagens/Colisao/Cerca2.png");
     Cerca2Sprite.setTexture(Cerca2Texture);
     Cerca2Sprite.setPosition(465,128);
 
     //Cerca -------- Gambiarra
-    Cerca12Texture.loadFromFile("Imagens/Cerca12.png");
+    Cerca12Texture.loadFromFile("Imagens/Colisao/Cerca12.png");
     Cerca12Sprite.setTexture(Cerca12Texture);
     Cerca12Sprite.setPosition(0,128);
 
-    Cerca22Texture.loadFromFile("Imagens/Cerca22.png");
+    Cerca22Texture.loadFromFile("Imagens/Colisao/Cerca22.png");
     Cerca22Sprite.setTexture(Cerca22Texture);
     Cerca22Sprite.setPosition(465,128);
 
     //Rio
-    RioTexture.loadFromFile("Imagens/Rio.png");
+    RioTexture.loadFromFile("Imagens/Colisao/Rio.png");
     RioSprite.setTexture(RioTexture);
     RioSprite.setPosition(20,415);
 
     //Pokemon invisivel
-    InvisivelTexture.loadFromFile("Imagens/PokemonInvisivel.png");
+    InvisivelTexture.loadFromFile("Imagens/Pokemons/PokemonInvisivel.png");
     InvisivelSprite[0].setTexture(InvisivelTexture);
     InvisivelSprite[1].setTexture(InvisivelTexture);
 
@@ -351,7 +355,7 @@ void Jogo::CarregaImagens(){
     BolsaSprite.setPosition(495,9);
 
     //Personagem jogo
-    PersonagemTexture.loadFromFile("Imagens/Personagem.png");
+    PersonagemTexture.loadFromFile("Imagens/Personagens/Personagem.png");
     PersonagemSprite.setTexture(PersonagemTexture);
     PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
     PersonagemSprite.setPosition(0,155);
@@ -359,68 +363,68 @@ void Jogo::CarregaImagens(){
     LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagem;
 
     //***************************************************Cenário Centro
-    Cenario2Texture.loadFromFile("Imagens/CenarioCentro.png");
+    Cenario2Texture.loadFromFile("Imagens/Cenarios/CenarioCentro.png");
     Cenario2Sprite.setTexture(Cenario2Texture);
 
     //Balcao do Centro
-    BalcaoCentroTexture.loadFromFile("Imagens/BalcaoCentro.png");
+    BalcaoCentroTexture.loadFromFile("Imagens/Colisao/BalcaoCentro.png");
     BalcaoCentroSprite.setTexture(BalcaoCentroTexture);
     BalcaoCentroSprite.setPosition(51,81);
 
     //Balcao do Centro ------- Gambiarra
-    BalcaoCentro2Texture.loadFromFile("Imagens/BalcaoCentro2.png");
+    BalcaoCentro2Texture.loadFromFile("Imagens/Colisao/BalcaoCentro2.png");
     BalcaoCentro2Sprite.setTexture(BalcaoCentro2Texture);
     BalcaoCentro2Sprite.setPosition(51,81);
 
     //Planta do Centro
-    PlantaCentroTexture.loadFromFile("Imagens/PlantaCentro.png");
+    PlantaCentroTexture.loadFromFile("Imagens/Colisao/PlantaCentro.png");
     PlantaCentroSprite.setTexture(PlantaCentroTexture);
     PlantaCentroSprite.setPosition(0,172);
 
     //Planta do Centro ------- Gambiarra
-    PlantaCentro2Texture.loadFromFile("Imagens/PlantaCentro2.png");
+    PlantaCentro2Texture.loadFromFile("Imagens/Colisao/PlantaCentro2.png");
     PlantaCentro2Sprite.setTexture(PlantaCentro2Texture);
     PlantaCentro2Sprite.setPosition(0,172);
 
     //Mesa do Centro
-    MesaCentroTexture.loadFromFile("Imagens/MesaCentro.png");
+    MesaCentroTexture.loadFromFile("Imagens/Colisao/MesaCentro.png");
     MesaCentroSprite.setTexture(MesaCentroTexture);
     MesaCentroSprite.setPosition(694,164);
 
     //Mesa do Centro ------- Gambiarra
-    MesaCentro2Texture.loadFromFile("Imagens/MesaCentro2.png");
+    MesaCentro2Texture.loadFromFile("Imagens/Colisao/MesaCentro2.png");
     MesaCentro2Sprite.setTexture(MesaCentro2Texture);
     MesaCentro2Sprite.setPosition(694,164);
 
     //Maquina do Centro
-    MaquinaCentroTexture.loadFromFile("Imagens/MaquinaCentro.png");
+    MaquinaCentroTexture.loadFromFile("Imagens/Colisao/MaquinaCentro.png");
     MaquinaCentroSprite.setTexture(MaquinaCentroTexture);
     MaquinaCentroSprite.setPosition(640,182);
 
     //Maquina do Centro ------- Gambiarra
-    MaquinaCentro2Texture.loadFromFile("Imagens/MaquinaCentro2.png");
+    MaquinaCentro2Texture.loadFromFile("Imagens/Colisao/MaquinaCentro2.png");
     MaquinaCentro2Sprite.setTexture(MaquinaCentro2Texture);
     MaquinaCentro2Sprite.setPosition(640,182);
 
     //Cenário comprar pokebolas e healar pokemons
-    AvisoPokebolaTexture.loadFromFile("Imagens/AvisoPokebola.png");
+    AvisoPokebolaTexture.loadFromFile("Imagens/Avisos/AvisoPokebola.png");
     AvisoPokebolaSprite.setTexture(AvisoPokebolaTexture);
     AvisoPokebolaSprite.setPosition(95.5,450);
 
     //Botão healar
-    HealarTexture.loadFromFile("Imagens/BotaoEncherVida.png");
+    HealarTexture.loadFromFile("Imagens/Botoes/BotaoEncherVida.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     HealarSprite = sf::Sprite(HealarTexture, rectSourceSprite);
     HealarSprite.setPosition(200, 520);
 
     //Botão comprar pokebola
-    CompraPokebolaTexture.loadFromFile("Imagens/BotaoPokebola.png");
+    CompraPokebolaTexture.loadFromFile("Imagens/Botoes/BotaoPokebola.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     CompraPokebolaSprite = sf::Sprite(CompraPokebolaTexture, rectSourceSprite);
     CompraPokebolaSprite.setPosition(440, 520);
 
     //Aviso bolsa do centro
-    AvisoPokemonTexture.loadFromFile("Imagens/AvisoPokemons.png");
+    AvisoPokemonTexture.loadFromFile("Imagens/Avisos/AvisoPokemons.png");
     AvisoPokemonSprite.setTexture(AvisoPokemonTexture);
     AvisoPokemonSprite.setPosition(LarguraTela/2 - 145.5,300);
 
@@ -447,50 +451,50 @@ void Jogo::CarregaImagens(){
     }
 
     //***************************************************Cenário Ginásio
-    Cenario3Texture.loadFromFile("Imagens/CenarioGinasio.png");
+    Cenario3Texture.loadFromFile("Imagens/Cenarios/CenarioGinasio1.png");
     Cenario3Sprite.setTexture(Cenario3Texture);
 
     //Chão Ginásio
-    ChaoGinasioTexture.loadFromFile("Imagens/ChaoGinasio.png");
+    ChaoGinasioTexture.loadFromFile("Imagens/Colisao/ChaoGinasio.png");
     ChaoGinasioSprite.setTexture(ChaoGinasioTexture);
     ChaoGinasioSprite.setPosition(0,130);
 
     //Lider Ginásio
-    LiderGinasioTexture.loadFromFile("Imagens/LiderGinasio.png");
+    LiderGinasioTexture.loadFromFile("Imagens/Personagens/LiderGinasio.png");
     LiderGinasioSprite.setTexture(LiderGinasioTexture);
     LiderGinasioSprite.setPosition(540,240);
     LiderGinasioSprite.setScale(EscalaLider, EscalaLider);
 
     //Lider Ginásio --- gambiarra
-    LiderGinasio2Texture.loadFromFile("Imagens/LiderGinasioGambiarra.png");
+    LiderGinasio2Texture.loadFromFile("Imagens/Personagens/LiderGinasioGambiarra.png");
     LiderGinasio2Sprite.setTexture(LiderGinasio2Texture);
-    LiderGinasio2Sprite.setPosition(553,240);
+    LiderGinasio2Sprite.setPosition(540,240);
     LiderGinasio2Sprite.setScale(EscalaLider, EscalaLider);
 
     //Aviso lider
-    AvisoLiderTexture.loadFromFile("Imagens/AvisoLider.png");
+    AvisoLiderTexture.loadFromFile("Imagens/Avisos/AvisoLider.png");
     AvisoLiderSprite.setTexture(AvisoLiderTexture);
     AvisoLiderSprite.setPosition(95.5,450);
 
     //Botão batalhar com a líder
-    BatalharTexture.loadFromFile("Imagens/BotaoDesafiar.png");
+    BatalharTexture.loadFromFile("Imagens/Botoes/BotaoDesafiar.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     BatalharSprite = sf::Sprite(BatalharTexture, rectSourceSprite);
     BatalharSprite.setPosition(320, 520);
 
     //***************************************************Cenário Luta
-    CenarioLutaTexture.loadFromFile("Imagens/CenarioLuta.png");
+    CenarioLutaTexture.loadFromFile("Imagens/Cenarios/CenarioLuta.png");
     CenarioLutaSprite.setTexture(CenarioLutaTexture);
     CenarioLutaSprite.setTextureRect(sf::IntRect(0, 0, 800, 600));
 
     //Botão atacar no cenário luta
-    AtacarTexture.loadFromFile("Imagens/BotaoAtacar.png");
+    AtacarTexture.loadFromFile("Imagens/Botoes/BotaoAtacar.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     AtacarSprite = sf::Sprite(AtacarTexture, rectSourceSprite);
     AtacarSprite.setPosition(LarguraTela/2 - 300, AlturaTela - 105);
 
     //Botão fugir no cenário luta
-    FugirTexture.loadFromFile("Imagens/BotaoFugir.png");
+    FugirTexture.loadFromFile("Imagens/Botoes/BotaoFugir.png");
     rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
     FugirSprite = sf::Sprite(FugirTexture, rectSourceSprite);
     FugirSprite.setPosition(LarguraTela/2 + 99, AlturaTela - 105);
@@ -510,85 +514,85 @@ void Jogo::CarregaImagens(){
     for (int a = 0; a < 9; a++){
         switch(a){
             case 0: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon0.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon0.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon0Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon0Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda0.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda0.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda0Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda0Morto.png");
                     break;
             case 1: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon1.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon1.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon1Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon1Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda1.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda1.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda1Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda1Morto.png");
                     break;
             case 2: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon2.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon2.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon2Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon2Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda2.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda2.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda2Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda2Morto.png");
                     break;
             case 3: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon3.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon3.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon3Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon3Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda3.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda3.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda3Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda3Morto.png");
                     break;
             case 4: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon4.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon4.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon4Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon4Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda4.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda4.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda4Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda4Morto.png");
                     break;
             case 5: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon5.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon5.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon5Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon5Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda5.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda5.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda5Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda5Morto.png");
                     break;
             case 6: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon6.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon6.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon6Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon6Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda6.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda6.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda6Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda6Morto.png");
                     break;
             case 7: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon7.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon7.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon7Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon7Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda7.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda7.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda7Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda7Morto.png");
                     break;
             case 8: //Pokemon vivo
-                    PokemonTexture[a].loadFromFile("Imagens/Pokemon8.png");
+                    PokemonTexture[a].loadFromFile("Imagens/Pokemons/Pokemon8.png");
                     //Pokemon morto
-                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemon8Morto.png");
+                    PokemonMortoTexture[a].loadFromFile("Imagens/Pokemons/Pokemon8Morto.png");
                     //Pokemon borda vivo
-                    PokemonBordaTexture[a].loadFromFile("Imagens/PokemonBorda8.png");
+                    PokemonBordaTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda8.png");
                     //Pokemon borda morto
-                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/PokemonBorda8Morto.png");
+                    PokemonBordaMortoTexture[a].loadFromFile("Imagens/Pokemons/PokemonBorda8Morto.png");
                     break;
         }
         //Pokemon vivo
@@ -655,7 +659,7 @@ void Jogo::CarregaImagens(){
     GameOverSprite.setTexture(GameOverTexture);
 
     //Botão jogar novamente quando perde
-    BotaoPerdeuTexture.loadFromFile("Imagens/BotaoJogarPerdeu.png");
+    BotaoPerdeuTexture.loadFromFile("Imagens/Botoes/BotaoJogarPerdeu.png");
     BotaoPerdeuSprite.setTexture(BotaoPerdeuTexture);
     BotaoPerdeuSprite.setPosition(479,492);
 
@@ -664,7 +668,7 @@ void Jogo::CarregaImagens(){
     GanhouSprite.setTexture(GanhouTexture);
 
     //Botão jogar novamente quando ganha
-    BotaoGanhouTexture.loadFromFile("Imagens/BotaoJogarGanhou.png");
+    BotaoGanhouTexture.loadFromFile("Imagens/Botoes/BotaoJogarGanhou.png");
     BotaoGanhouSprite.setTexture(BotaoGanhouTexture);
     BotaoGanhouSprite.setPosition(479,492);
 
@@ -678,7 +682,7 @@ void Jogo::CarregaImagens(){
 
 void Jogo::CarregaSons(){
     //Música principal
-    PrincipalMusic.openFromFile("Som/CenarioPrincipalSom.wav");
+    PrincipalMusic.openFromFile("Som/PrimeiroCenarioSom.wav");
     PrincipalMusic.setVolume(200);
 
     //Música batalha
@@ -716,7 +720,7 @@ void Jogo::MovimentoPersonagem(){
         //Verifica se não está no fim da tela pela esquerda
         if(PersonagemSprite.getPosition().x > 0){
             AtualizaPersonagem.y = 2;
-            if(CenarioPrincipal == 1){
+            if(PrimeiroCenario == 1){
                 PersonagemSprite.move(-Esquerda.x*delta,Esquerda.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
@@ -726,7 +730,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds()))
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-            }else if(CenarioGinasio){
+            }else if(CenarioGinasio1){
                 PersonagemSprite.move((-Esquerda.x-120)*delta,Esquerda.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds()))
                     PersonagemSprite.move((+Esquerda.x+120)*delta,Esquerda.y);
@@ -742,7 +746,7 @@ void Jogo::MovimentoPersonagem(){
         //Verifica se não está no fim da tela pela direita
         if(PersonagemSprite.getPosition().x < LarguraTela - LarguraPersonagemAtualizada){
             AtualizaPersonagem.y = 3;
-            if(CenarioPrincipal == 1){
+            if(PrimeiroCenario == 1){
                 PersonagemSprite.move(Direita.x*delta,Direita.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
@@ -752,7 +756,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds()))
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
-            }else if(CenarioGinasio){
+            }else if(CenarioGinasio1){
                 PersonagemSprite.move((+Direita.x+120)*delta,Direita.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds())){
                     PersonagemSprite.move((-Direita.x-120)*delta,Direita.y);
@@ -768,7 +772,7 @@ void Jogo::MovimentoPersonagem(){
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         if(PersonagemSprite.getPosition().y < AlturaTela - AlturaPersonagemAtualizada){
             AtualizaPersonagem.y = 1;
-            if(CenarioPrincipal == 1){
+            if(PrimeiroCenario == 1){
                 PersonagemSprite.move(Baixo.x,+Baixo.y*delta);
                 if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
@@ -778,7 +782,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
                 if(PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-            }else if(CenarioGinasio){
+            }else if(CenarioGinasio1){
                 PersonagemSprite.move(Baixo.x,(+Baixo.y+120)*delta);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,(-Baixo.y-120)*delta);
@@ -793,7 +797,7 @@ void Jogo::MovimentoPersonagem(){
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         if(PersonagemSprite.getPosition().y > 0){
             AtualizaPersonagem.y = 0;
-            if(CenarioPrincipal == 1){
+            if(PrimeiroCenario == 1){
                 PersonagemSprite.move(Cima.x,-Cima.y*delta);
                 if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,+Cima.y*delta);
@@ -813,7 +817,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
                 else if(PersonagemSprite.getGlobalBounds().intersects(MaquinaCentro2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
-            }else if(CenarioGinasio){
+            }else if(CenarioGinasio1){
                 PersonagemSprite.move(Cima.x,(-Cima.y-120)*delta);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
@@ -841,7 +845,7 @@ void Jogo::MovimentoPersonagem(){
     //Realiza a alteração da imagem da personagem dependendo do lado para qual está indo
     //Verifica se a personagem está na area do matinho, se sim, só mostra a imagem da sua cabeça
     if((PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada - 12 > 300 && PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 300 + 272) &&
-       (PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 > 150 && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 < 150 + 595) && CenarioPrincipal)
+       (PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 > 150 && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 < 150 + 595) && PrimeiroCenario)
         PersonagemSprite.setTextureRect(sf::IntRect(AtualizaPersonagem.x*27, AtualizaPersonagem.y*31, 27, 31-12));
     else
         PersonagemSprite.setTextureRect(sf::IntRect(AtualizaPersonagem.x*27, AtualizaPersonagem.y*31, 27, 31));
@@ -1024,7 +1028,7 @@ void Jogo::TelaCenarioPokemonInicial(){
     //Ao escolher o pokemon, vai para o cenário do centro
     if(Pokemon1 || Pokemon0 || Pokemon2){
         PokemonInicial = 0;
-        CenarioPrincipal = 1;
+        PrimeiroCenario = 1;
         if (Pokemon0)
             PokemonEscolha = 0;
         else if (Pokemon1)
@@ -1036,7 +1040,7 @@ void Jogo::TelaCenarioPokemonInicial(){
     }
 }
 
-void Jogo::TelaCenarioPrincipal(){
+void Jogo::TelaPrimeiroCenario(){
     PosicaoMouse();
     
     if(Event.type == sf::Event::MouseButtonPressed){
@@ -1086,7 +1090,7 @@ void Jogo::TelaCenarioPrincipal(){
     PokemonSprite[PokemonEscolha].setScale(EscalaPokemonBolsa, EscalaPokemonBolsa);
 
     window.clear();
-    window.draw(Cenario1Sprite);
+    window.draw(PrimeiroCenarioSprite);
     window.draw(PlacaCentroSprite);
     window.draw(PlacaCenario2Sprite);
 
@@ -1143,8 +1147,8 @@ void Jogo::TelaCenarioPrincipal(){
     //Mudança de tela
     //A personagem entra em uma área especifica da tela e vai para o cenário do ginásio
     if(PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada >= LarguraTela && (PersonagemSprite.getPosition().y > 150 &&  PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 205)){
-        CenarioPrincipal = 0;
-        CenarioGinasio = 1;
+        PrimeiroCenario = 0;
+        CenarioGinasio1 = 1;
         PersonagemSprite.setScale(EscalaPersonagemCentro, EscalaPersonagemCentro);
         PersonagemSprite.setPosition(0, PersonagemSprite.getPosition().y);
         AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemCentro;
@@ -1153,7 +1157,7 @@ void Jogo::TelaCenarioPrincipal(){
     //A personagem entra em uma área especifica da tela e vai para o cenário do centro
     else if(PersonagemSprite.getGlobalBounds().intersects(CentroSprite.getGlobalBounds())){
         if(PersonagemSprite.getPosition().x > (CentroSprite.getPosition().x + 25*EscalaCentro) && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < (Centro2Sprite.getPosition().x + 50*EscalaCentro)){
-            CenarioPrincipal = 0;
+            PrimeiroCenario = 0;
             CenarioCentro = 1;
             PersonagemSprite.setScale(EscalaPersonagemCentro, EscalaPersonagemCentro);
             AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemCentro;
@@ -1165,7 +1169,7 @@ void Jogo::TelaCenarioPrincipal(){
     else if(PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[0].getGlobalBounds()) ||
        PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[1].getGlobalBounds())){
         CenarioLuta = 1;
-        CenarioPrincipal = 0;
+        PrimeiroCenario = 0;
         PokemonLuta = rand() % 9;
     }
 }
@@ -1367,7 +1371,7 @@ void Jogo::TelaCenarioCentro(){
 
     //A personagem entra numa área específica da tela e vai para o cenário principal
     if((PersonagemSprite.getPosition().y > 600 - AlturaPersonagemAtualizada) && (PersonagemSprite.getPosition().x > 400 - 60 &&  PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < 400 + 60)){
-        CenarioPrincipal = 1;
+        PrimeiroCenario = 1;
         CenarioCentro = 0;
         PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
         AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
@@ -1376,7 +1380,7 @@ void Jogo::TelaCenarioCentro(){
     }
 }
 
-void Jogo::TelaCenarioGinasio(){
+void Jogo::TelaCenarioGinasio1(){
     PosicaoMouse();
 
     if(Event.type == sf::Event::MouseButtonPressed){
@@ -1436,10 +1440,10 @@ void Jogo::TelaCenarioGinasio(){
 
         //Mudança de tela para cenário batalha
         if(CenarioBatalha){
-            CenarioGinasio = 0;
+            CenarioGinasio1 = 0;
             CenarioBatalha = 1;
             CenarioLuta = 0;
-            CenarioPrincipal = 0;
+            PrimeiroCenario = 0;
         }
     }
     window.draw(SomSprite);
@@ -1447,8 +1451,8 @@ void Jogo::TelaCenarioGinasio(){
 
     //A personagem entra numa área específica da tela e vai para o cenário principal
     if(PersonagemSprite.getPosition().x < 0 && (PersonagemSprite.getPosition().y > 150 &&  PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 255)){
-        CenarioPrincipal = 1;
-        CenarioGinasio = 0;
+        PrimeiroCenario = 1;
+        CenarioGinasio1 = 0;
         PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
         AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
         LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagem;
@@ -1549,7 +1553,7 @@ void Jogo::TelaCenarioLuta(){
 
         //Atualiza a variável auxiliar para verificar se fugiu e volta para o cenário principal
         botaoFugir = true;
-        CenarioPrincipal = 1;
+        PrimeiroCenario = 1;
         CenarioLuta = 0;
 
         //Sorteia novamente dois lugares aleatórios para a personagem colidir e capturar pokemons
@@ -1720,16 +1724,16 @@ void Jogo::Run(){
                 TelaCenarioPokemonInicial();
             }
             //Cenário para caçar pokemon
-            else if(CenarioPrincipal){
-                TelaCenarioPrincipal();
+            else if(PrimeiroCenario){
+                TelaPrimeiroCenario();
             }
             //Cenário para realar os pokemons
             else if(CenarioCentro){
                 TelaCenarioCentro();
             }
             //Cenário para entrar no ginásio
-            else if(CenarioGinasio){
-                TelaCenarioGinasio();
+            else if(CenarioGinasio1){
+                TelaCenarioGinasio1();
             }
             //Cenário para lutar na batalha
             else if(CenarioLuta) {

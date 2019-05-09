@@ -3,8 +3,8 @@
 #include "game.h"
 
 int main(){
-    Jogo Play;
-    Play.Run();
+    Jogo pokewomon;
+    pokewomon.Run();
 
     return 0;
 }
