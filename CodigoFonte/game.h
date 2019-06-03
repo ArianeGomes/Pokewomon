@@ -25,6 +25,7 @@
 #define EscalaLider 2.7
 #define EscalaPokemonLuta 2.5
 #define EscalaPokemonBolsa 0.7
+#define quantidadePokemon 18 
 
 class Jogo{
     public:
@@ -36,6 +37,7 @@ class Jogo{
         bool AtualizaBotao(sf::Event Event, sf::Vector2i position, sf::Sprite &Sprite, sf::IntRect rectSourceSprite);
         void CarregaImagens();
         void CarregaSons();
+        void CarregaPokemon(int a);
         void PosicaoMouse();
         void MovimentoPersonagem();
         //Funções de ataque para a luta e batalha
