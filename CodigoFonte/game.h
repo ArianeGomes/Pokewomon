@@ -58,6 +58,8 @@ class Jogo{
         void TelaCenarioPokemonInicial();
         void TelaPrimeiroCenario();
         void TelaSegundoCenario();
+        void TelaTerceiroCenario();
+        void TelaQuartoCenario();
         void TelaCenarioCentro();
         void TelaCenarioGinasio1();
         void TelaCenarioLuta();
@@ -80,7 +82,7 @@ class Jogo{
         //Instruções
         sf::Texture CenarioInstruTexture, VoltarTexture;
         sf::Sprite CenarioInstruSprite, VoltarSprite;
-        
+
         //Cenario escolha pokémon
         sf::Texture Pokemon1Texture, Pokemon0Texture, Pokemon2Texture, CenarioEscolhaPokemonTexture;
         sf::Sprite Pokemon1Sprite, Pokemon0Sprite, Pokemon2Sprite, CenarioEscolhaPokemonSprite;
@@ -104,6 +106,26 @@ class Jogo{
 
         sf::Texture CercaHorizontal1Texture, CercaHorizontal2Texture, CercaVerticalTexture;
         sf::Sprite CercaHorizontal1Sprite, CercaHorizontal2Sprite, CercaVerticalSprite;
+
+        //Terceiro Cenário
+        sf::Texture TerceiroCenarioTexture, CantoCimaTexture, CantoEsquerdaTexture;
+        sf::Sprite TerceiroCenarioSprite, CantoCimaSprite, CantoEsquerdaSprite;
+
+        sf::Texture CantoInferior1Texture, CantoInferior2Texture, CantoInferior3Texture;
+        sf::Sprite CantoInferior1Sprite, CantoInferior2Sprite, CantoInferior3Sprite;
+
+        sf::Texture PedrasDireita1Texture, PedrasDireita2Texture, PedrasEsquerdaTexture, PedrasPassagemTexture;
+        sf::Sprite PedrasDireita1Sprite, PedrasDireita2Sprite, PedrasEsquerdaSprite, PedrasPassagemSprite;
+
+        //Quatro Cenário
+        sf::Texture QuartoCenarioTexture, OceanoInternoBaixo1Texture, OceanoInternoBaixo2Texture;
+        sf::Sprite QuartoCenarioSprite, OceanoInternoBaixo1Sprite, OceanoInternoBaixo2Sprite;
+
+        sf::Texture OceanoExternoBaixoTexture, OceanoExternoCimaTexture, OceanoExternoDireitaTexture, OceanoExternoEsquerdaTexture;
+        sf::Sprite OceanoExternoBaixoSprite, OceanoExternoCimaSprite, OceanoExternoDireitaSprite, OceanoExternoEsquerdaSprite;
+
+        sf::Texture OceanoInternoCimaTexture, OceanoInternoDireitaTexture, OceanoInternoEsquerdaTexture;
+        sf::Sprite OceanoInternoCimaSprite, OceanoInternoDireitaSprite, OceanoInternoEsquerdaSprite;
 
         //Cenario centro
         sf::Texture Cenario2Texture, BalcaoCentroTexture, MaquinaCentroTexture, MesaCentroTexture, PlantaCentroTexture;
@@ -132,7 +154,7 @@ class Jogo{
         //Pokemons e bolsa pokemon
         sf::Texture InvisivelTexture, PokemonTexture[9], PokemonMortoTexture[9], PokemonBordaTexture[9], PokemonBordaMortoTexture[9], BolsaTexture, ForteTexture, FracoTexture, MedioTexture;
         sf::Sprite InvisivelSprite[2], PokemonSprite[9], PokemonMortoSprite[9], PokemonBordaSprite[9], PokemonBordaMortoSprite[9], BolsaSprite, ForteSprite[2], FracoSprite[2], MedioSprite[2];
-        
+
         //Quantidade de moedas e pokebolas
         sf::Texture QuantidadeTexture;
         sf::Sprite QuantidadeMoedasSprite[21], QuantidadePokebolasSprite[21];
@@ -163,7 +185,7 @@ class Jogo{
         int Sair, Start, Voltar, Instrucoes, Atacar, Fugir, Pokemon0, Pokemon1, Pokemon2;
 
         //Telas
-        int PokemonInicial, PrimeiroCenario, SegundoCenario, TerceiroCenario, CenarioGinasio1, CenarioCentro;
+        int PokemonInicial, PrimeiroCenario, SegundoCenario, TerceiroCenario, QuartoCenario, CenarioGinasio1, CenarioCentro;
         int CenarioLuta, CenarioGanhou, CenarioPerdeu, CenarioBatalha;
 
         //Moedas e pokebolas
