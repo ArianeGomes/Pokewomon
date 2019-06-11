@@ -20,7 +20,7 @@ class Pokemon{
 
     private:
         int ID;
-        string Nome, Tipo, Vantagem[2], Desvantagem;
+        char Nome[30], Tipo[10], Vantagem[2][10], Desvantagem[10];
         int Ataque, Vida;
 };
 #endif // POKEMON_H

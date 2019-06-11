@@ -1,4 +1,4 @@
-pokewomon:	clean main.o node.o lista.o pokemon.o game.o
+pokewomon:	main.o node.o lista.o pokemon.o game.o
 	g++ main.o node.o lista.o pokemon.o game.o -o pokewomon -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 main.o:

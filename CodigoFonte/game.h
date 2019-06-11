@@ -10,22 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-//Definições
-#define LarguraTela 800
-#define AlturaTela 600
-#define LarguraPersonagem 27
-#define AlturaPersonagem 31
-#define LarguraCentro 78
-#define AlturaCentro 68
-#define AlturaCentro2 62
-#define TamanhoPlacaCentro 278
-#define EscalaCentro 1.5
-#define EscalaPersonagem 0.9
-#define EscalaPersonagemCentro 2.5
-#define EscalaLider 2.7
-#define EscalaPokemonLuta 2.5
-#define EscalaPokemonBolsa 0.7
-#define quantidadePokemon 18 
+#define quantidadePokemon 34
 
 class Jogo{
     public:
@@ -91,18 +76,22 @@ class Jogo{
         sf::Texture PersonagemTexture, PrimeiroCenarioTexture, CentroTexture, Centro2Texture;
         sf::Sprite PersonagemSprite, PrimeiroCenarioSprite, CentroSprite, Centro2Sprite;
 
-        sf::Texture MatinhoTexture, Cerca1Texture, Cerca12Texture, Cerca22Texture, Cerca2Texture, RioTexture, Arvore1Texture;
-        sf::Sprite MatinhoSprite[16][35], Cerca1Sprite, Cerca12Sprite, Cerca22Sprite, Cerca2Sprite, RioSprite, Arvore1Sprite;
+        sf::Texture MatinhoTexture, Cerca1Texture, Cerca12Texture, Cerca22Texture, Cerca2Texture, 
+        RioTexture, Arvore1Texture;
+        sf::Sprite MatinhoSprite[16][35], Cerca1Sprite, Cerca12Sprite, Cerca22Sprite, Cerca2Sprite, 
+        RioSprite, Arvore1Sprite;
 
         sf::Texture PlacaCentroTexture, AvisoPlacaCentroTexture, PlacaCenario2Texture, AvisoPlacaCenario2Texture;
         sf::Sprite PlacaCentroSprite, AvisoPlacaCentroSprite, PlacaCenario2Sprite, AvisoPlacaCenario2Sprite;
 
         //Segundo Cenário
-        sf::Texture SegundoCenarioTexture, Ginasio1Texture, Ginasio1MenorTexture, LagoTexture, MorroTexture;
-        sf::Sprite SegundoCenarioSprite, Ginasio1Sprite, Ginasio1MenorSprite, LagoSprite, MorroSprite;
+        sf::Texture SegundoCenarioTexture, LagoTexture, MorroTexture;
+        sf::Sprite SegundoCenarioSprite, LagoSprite, MorroSprite;
 
-        sf::Texture ArvoresBaixo1Texture, ArvoresBaixo2Texture, ArvoresCimaTexture, ArvoresDireitaTexture, ArvoresEsquerdaTexture, ArvoresCutTexture, ArvoreTexture;
-        sf::Sprite ArvoresBaixo1Sprite, ArvoresBaixo2Sprite, ArvoresCimaSprite, ArvoresDireitaSprite, ArvoresEsquerdaSprite, ArvoresCutSprite, ArvoreSprite;
+        sf::Texture ArvoresBaixo1Texture, ArvoresBaixo2Texture, ArvoresCimaTexture, ArvoresDireitaTexture, 
+        ArvoresEsquerdaTexture, ArvoresCutTexture, ArvoreTexture;
+        sf::Sprite ArvoresBaixo1Sprite, ArvoresBaixo2Sprite, ArvoresCimaSprite, ArvoresDireitaSprite, 
+        ArvoresEsquerdaSprite, ArvoresCutSprite, ArvoreSprite;
 
         sf::Texture CercaHorizontal1Texture, CercaHorizontal2Texture, CercaVerticalTexture;
         sf::Sprite CercaHorizontal1Sprite, CercaHorizontal2Sprite, CercaVerticalSprite;
@@ -117,12 +106,14 @@ class Jogo{
         sf::Texture PedrasDireita1Texture, PedrasDireita2Texture, PedrasEsquerdaTexture, PedrasPassagemTexture;
         sf::Sprite PedrasDireita1Sprite, PedrasDireita2Sprite, PedrasEsquerdaSprite, PedrasPassagemSprite;
 
-        //Quatro Cenário
+        //Quarto Cenário
         sf::Texture QuartoCenarioTexture, OceanoInternoBaixo1Texture, OceanoInternoBaixo2Texture;
         sf::Sprite QuartoCenarioSprite, OceanoInternoBaixo1Sprite, OceanoInternoBaixo2Sprite;
 
-        sf::Texture OceanoExternoBaixoTexture, OceanoExternoCimaTexture, OceanoExternoDireitaTexture, OceanoExternoEsquerdaTexture;
-        sf::Sprite OceanoExternoBaixoSprite, OceanoExternoCimaSprite, OceanoExternoDireitaSprite, OceanoExternoEsquerdaSprite;
+        sf::Texture OceanoExternoBaixoTexture, OceanoExternoCimaTexture, OceanoExternoDireitaTexture, 
+        OceanoExternoEsquerdaTexture;
+        sf::Sprite OceanoExternoBaixoSprite, OceanoExternoCimaSprite, OceanoExternoDireitaSprite, 
+        OceanoExternoEsquerdaSprite;
 
         sf::Texture OceanoInternoCimaTexture, OceanoInternoDireitaTexture, OceanoInternoEsquerdaTexture;
         sf::Sprite OceanoInternoCimaSprite, OceanoInternoDireitaSprite, OceanoInternoEsquerdaSprite;
@@ -140,20 +131,40 @@ class Jogo{
         sf::Texture AvisoPokebolaTexture, HealarTexture, CompraPokebolaTexture;
         sf::Sprite AvisoPokebolaSprite, HealarSprite, CompraPokebolaSprite;
 
+        //Cenario ginasios
+        sf::Texture CenarioGinasio1Texture, CenarioGinasio2Texture, CenarioGinasio3Texture;
+        sf::Sprite CenarioGinasio1Sprite, CenarioGinasio2Sprite, CenarioGinasio3Sprite;
+
         //Cenario ginasio 1
-        sf::Texture LiderGinasioTexture, LiderGinasio2Texture, AvisoLiderTexture, BatalharTexture;
-        sf::Sprite LiderGinasioSprite, LiderGinasio2Sprite, AvisoLiderSprite, BatalharSprite;
+        sf::Texture Ginasio1Texture, Ginasio1MenorTexture, LiderGinasio1Texture, LiderGinasio1ColisaoTexture;
+        sf::Sprite Ginasio1Sprite, Ginasio1MenorSprite, LiderGinasio1Sprite, LiderGinasio1ColisaoSprite;
+
+        sf::Texture AvisoLiderTexture, BatalharTexture;
+        sf::Sprite AvisoLiderSprite, BatalharSprite;
+
+        //Cenario ginasio 2
+        sf::Texture Ginasio2Texture, Ginasio2MenorTexture, LiderGinasio2Texture, LiderGinasio2ColisaoTexture;
+        sf::Sprite Ginasio2Sprite, Ginasio2MenorSprite, LiderGinasio2Sprite, LiderGinasio2ColisaoSprite;
+
+        //Cenario ginasio 3
+        sf::Texture LiderGinasio3Texture, LiderGinasio3ColisaoTexture;
+        sf::Sprite LiderGinasio3Sprite, LiderGinasio3ColisaoSprite;
 
         //Cenario luta
         sf::Texture CenarioLutaTexture, VidaTexture, AtacarTexture, FugirTexture;
         sf::Sprite CenarioLutaSprite, VidaSprite[12], AtacarSprite, FugirSprite;
 
         //Cenario batalha
-        sf::Sprite PokemonAdversarioSprite[9];
+        sf::Sprite PokemonAdversarioSprite[quantidadePokemon];
 
         //Pokemons e bolsa pokemon
-        sf::Texture InvisivelTexture, PokemonTexture[9], PokemonMortoTexture[9], PokemonBordaTexture[9], PokemonBordaMortoTexture[9], BolsaTexture, ForteTexture, FracoTexture, MedioTexture;
-        sf::Sprite InvisivelSprite[2], PokemonSprite[9], PokemonMortoSprite[9], PokemonBordaSprite[9], PokemonBordaMortoSprite[9], BolsaSprite, ForteSprite[2], FracoSprite[2], MedioSprite[2];
+        sf::Texture InvisivelTexture, PokemonTexture[quantidadePokemon], PokemonMortoTexture[quantidadePokemon],
+        PokemonBordaTexture[quantidadePokemon], PokemonBordaMortoTexture[quantidadePokemon], BolsaTexture, 
+        ForteTexture, FracoTexture, MedioTexture;
+
+        sf::Sprite InvisivelSprite[2], PokemonSprite[quantidadePokemon], PokemonMortoSprite[quantidadePokemon], 
+        PokemonBordaSprite[quantidadePokemon], PokemonBordaMortoSprite[quantidadePokemon], BolsaSprite, 
+        ForteSprite[2], FracoSprite[2], MedioSprite[2];
 
         //Quantidade de moedas e pokebolas
         sf::Texture QuantidadeTexture;
@@ -185,7 +196,8 @@ class Jogo{
         int Sair, Start, Voltar, Instrucoes, Atacar, Fugir, Pokemon0, Pokemon1, Pokemon2;
 
         //Telas
-        int PokemonInicial, PrimeiroCenario, SegundoCenario, TerceiroCenario, QuartoCenario, CenarioGinasio1, CenarioCentro;
+        int PokemonInicial, PrimeiroCenario, SegundoCenario, TerceiroCenario, QuartoCenario;
+        int CenarioGinasio1, CenarioGinasio2, CenarioGinasio3, CenarioCentro;
         int CenarioLuta, CenarioGanhou, CenarioPerdeu, CenarioBatalha;
 
         //Moedas e pokebolas
@@ -212,6 +224,6 @@ class Jogo{
         Pokemon *seuPokemonBatalhando, *pokemonAdversarioBatalhando;
 
         //Lista de pokemons
-        Lista PokemonsCapturaveis, batalhaGinasio, SeusPokemons;
+        Lista PokemonsCapturaveis, BatalhaGinasio1, BatalhaGinasio2, BatalhaGinasio3, SeusPokemons;
 };
 #endif // GAME_H

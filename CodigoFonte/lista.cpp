@@ -258,22 +258,22 @@ void Lista::CurarTodaLista(){
 //retorna o pokemon que vai batalhar & no parametro "posicao", passa qual a posicao desse pokemon
 Pokemon* Lista::pokemonQueVaiBatalhar(int* posicao){
     if(getQntPokemonsBatalhaveis() != 0){
-        if(getPokemon(0)->estaVivo()){
+        if(getPokemon(0)->estaVivo()) {
             *posicao = 1;
             return getPokemon(0);
-        }else if(getPokemon(1)->estaVivo()){
+        } else if(getPokemon(1)->estaVivo()) {
             *posicao = 2;
             return getPokemon(1);
-        }else if(getPokemon(2)->estaVivo()){
+        } else if(getPokemon(2)->estaVivo()) {
             *posicao = 3;
             return getPokemon(2);
-        }else if(getPokemon(3)->estaVivo()){
+        } else if(getPokemon(3)->estaVivo()) {
             *posicao = 4;
             return getPokemon(3);
-        }else if(getPokemon(4)->estaVivo()){
+        } else if(getPokemon(4)->estaVivo()) {
             *posicao = 5;
             return getPokemon(4);
-        }else if(getPokemon(5)->estaVivo()){
+        } else if(getPokemon(5)->estaVivo()) {
             *posicao = 6;
             return getPokemon(5);
         }

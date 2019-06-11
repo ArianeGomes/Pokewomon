@@ -18,25 +18,29 @@
 #define EscalaCentro 1.5
 #define EscalaPersonagem 0.9
 #define EscalaPersonagemCentro 2.5
-#define EscalaLider 2.7
+#define EscalaPersonagemGinasio 1.5
 #define EscalaPokemonLuta 2.5
 #define EscalaPokemonBolsa 0.7
-#define quantidadePokemon 18 
+#define quantidadePokemon 34
 
 Jogo::Jogo(){
     //Menu - botão
     Sair = 0;
     Start = 0;
     Instrucoes = 0;
+
     //Instruções - botão
     Voltar = 0;
+
     //Luta e batalha - botão
     Atacar = 0;
     Fugir = 0;
+
     //Tela pokemon inicial - botão
     Pokemon0 = 0;
     Pokemon1 = 0;
     Pokemon2 = 0;
+
     //Telas
     PokemonInicial = 1;
     PrimeiroCenario = 0;
@@ -47,9 +51,11 @@ Jogo::Jogo(){
     CenarioBatalha = 0;
     CenarioGanhou = 0;
     CenarioPerdeu = 0;
+
     //Moedas e Pokebolas
     moedas = 0;
     pokebolas = 5;
+
     //Auxiliar
     i = 0;
     j = 0;
@@ -58,11 +64,14 @@ Jogo::Jogo(){
     botaoFugir = true;
     Music = 1;
     cenarioAnterior = 0;
+
     //Controle da continuidade da personagem
     delta = 0;
+
     //Atualiza imagem da personagem
     AtualizaPersonagem.x = 0;
     AtualizaPersonagem.y = 1;
+
     //Velocidade de movimento da personagem
     Cima.x = 0;
     Cima.y = 120;
@@ -72,12 +81,15 @@ Jogo::Jogo(){
     Esquerda.y = 0;
     Direita.x = 120;
     Direita.y = 0;
+
     //Largura e altura redimensionada da personagem
     AlturaPersonagemAtualizada = 0;
     LarguraPersonagemAtualizada = 0;
+
     //Largura e altura redimensionada do centro
     AlturaCentroAtualizada = 0;
     LarguraCentroAtualizada = 0;
+
     //Tamanho redimensionado da placa do centro
     TamanhoPlacaCentroAtualizada = 0;
 
@@ -86,13 +98,18 @@ Jogo::Jogo(){
         PokemonsCapturaveis.InserirNoFinal(i);
 
     //Lista pokemons inimigos ginásio
-    batalhaGinasio.InserirNoFinal(3);
-    batalhaGinasio.InserirNoFinal(4);
-    batalhaGinasio.InserirNoFinal(5);
-    batalhaGinasio.InserirNoFinal(6);
-    batalhaGinasio.InserirNoFinal(7);
-    batalhaGinasio.InserirNoFinal(8);
-    batalhaGinasio.CurarTodaLista();
+    for(i = 16; i < quantidadePokemon; i++) {
+        if (i < 22)
+            BatalhaGinasio1.InserirNoFinal(i);
+        else if (i < 28)
+            BatalhaGinasio2.InserirNoFinal(i);
+        else
+            BatalhaGinasio3.InserirNoFinal(i);
+        
+    }
+    BatalhaGinasio1.CurarTodaLista();
+    BatalhaGinasio2.CurarTodaLista();
+    BatalhaGinasio3.CurarTodaLista();
 }
 
 void Jogo::Reseta(){
@@ -100,15 +117,19 @@ void Jogo::Reseta(){
     Sair = 0;
     Start = 0;
     Instrucoes = 0;
+
     //Instruções - botão
     Voltar = 0;
+
     //Luta e batalha - botão
     Atacar = 0;
     Fugir = 0;
+
     //Tela pokemon inicial - botão
     Pokemon0 = 0;
     Pokemon1 = 0;
     Pokemon2 = 0;
+
     //Telas
     PokemonInicial = 1;
     PrimeiroCenario = 0;
@@ -119,9 +140,11 @@ void Jogo::Reseta(){
     CenarioBatalha = 0;
     CenarioGanhou = 0;
     CenarioPerdeu = 0;
+
     //Moedas e Pokebolas
     moedas = 0;
     pokebolas = 5;
+
     //Auxiliar
     i = 0;
     j = 0;
@@ -130,11 +153,14 @@ void Jogo::Reseta(){
     botaoFugir = true;
     Music = 1;
     cenarioAnterior = 0;
+
     //Controle da continuidade da personagem
     delta = 0;
+
     //Atualiza imagem da personagem
     AtualizaPersonagem.x = 0;
     AtualizaPersonagem.y = 1;
+
     //Velocidade de movimento da personagem
     Cima.x = 0;
     Cima.y = 120;
@@ -144,15 +170,21 @@ void Jogo::Reseta(){
     Esquerda.y = 0;
     Direita.x = 120;
     Direita.y = 0;
+
     //Reseta a lista dos seus pokemons para começar tudo de novo
     SeusPokemons.RetirarTodosElementos();
+
     //Cura a vida de todos os pokemons da batalha
-    batalhaGinasio.CurarTodaLista();
+    BatalhaGinasio1.CurarTodaLista();
+    BatalhaGinasio2.CurarTodaLista();
+    BatalhaGinasio3.CurarTodaLista();
+
     //Seta a posição da personagem e a escala
     PersonagemSprite.setPosition(0,155);
     PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
     AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
     LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagem;
+
     //Atualiza a imagem do som
     SomSprite.setTextureRect(sf::IntRect(Music*52, 0, 52, 54));
 }
@@ -300,21 +332,6 @@ void Jogo::CarregaImagens(){
     //Matinho
     MatinhoTexture.loadFromFile("Imagens/Matinho.png");
 
-    //Dispõe os matinhos em uma area da tela
-    for(i=0; i<16; i++){
-        for(int j=0; j<35; j++){
-            MatinhoSprite[i][j].setTexture(MatinhoTexture);
-            if(j == 0){
-                if(i == 0)
-                    MatinhoSprite[i][j].setPosition(150, 300);
-                else
-                    MatinhoSprite[i][j].setPosition(150, MatinhoSprite[i-1][j].getPosition().y + 17);
-            }
-            else
-                MatinhoSprite[i][j].setPosition(MatinhoSprite[i][j-1].getPosition().x + 17, MatinhoSprite[i][j-1].getPosition().y);
-        }
-    }
-
     //Cerca
     Cerca1Texture.loadFromFile("Imagens/Colisao/Cerca1.png");
     Cerca1Sprite.setTexture(Cerca1Texture);
@@ -405,8 +422,7 @@ void Jogo::CarregaImagens(){
 
     ArvoresCutTexture.loadFromFile("Imagens/Colisao/ArvoresCut.png");
     ArvoresCutSprite.setTexture(ArvoresCutTexture);
-    //ArvoresCutSprite.setPosition(333,221);
-    ArvoresCutSprite.setPosition(800,221);
+    ArvoresCutSprite.setPosition(333,221);
 
     ArvoreTexture.loadFromFile("Imagens/Colisao/Arvore.png");
     ArvoreSprite.setTexture(ArvoreTexture);
@@ -597,18 +613,19 @@ void Jogo::CarregaImagens(){
 
 
     //***************************************************cenário ginásio 1
+    CenarioGinasio1Texture.loadFromFile("Imagens/Cenarios/CenarioGinasio1.png");
+    CenarioGinasio1Sprite.setTexture(CenarioGinasio1Texture);
 
     //Lider ginásio
-    LiderGinasioTexture.loadFromFile("Imagens/Personagens/LiderGinasio.png");
-    LiderGinasioSprite.setTexture(LiderGinasioTexture);
-    LiderGinasioSprite.setPosition(540,240);
-    LiderGinasioSprite.setScale(EscalaLider, EscalaLider);
+    LiderGinasio1Texture.loadFromFile("Imagens/Personagens/LiderGinasio1.png");
+    LiderGinasio1Sprite.setTexture(LiderGinasio1Texture);
+    LiderGinasio1Sprite.setPosition(380,290);
+    LiderGinasio1Sprite.setScale(EscalaPersonagemGinasio, EscalaPersonagemGinasio);
 
-    //Lider ginásio Colisão
-    LiderGinasio2Texture.loadFromFile("Imagens/Personagens/LiderGinasioGambiarra.png");
-    LiderGinasio2Sprite.setTexture(LiderGinasio2Texture);
-    LiderGinasio2Sprite.setPosition(540,240);
-    LiderGinasio2Sprite.setScale(EscalaLider, EscalaLider);
+    LiderGinasio1ColisaoTexture.loadFromFile("Imagens/Personagens/LiderGinasio1Colisao.png");
+    LiderGinasio1ColisaoSprite.setTexture(LiderGinasio1ColisaoTexture);
+    LiderGinasio1ColisaoSprite.setPosition(380,290);
+    LiderGinasio1ColisaoSprite.setScale(EscalaPersonagemGinasio, EscalaPersonagemGinasio);
 
     //Aviso lider
     AvisoLiderTexture.loadFromFile("Imagens/Avisos/AvisoLider.png");
@@ -652,7 +669,7 @@ void Jogo::CarregaImagens(){
 
 
     //***************************************************pokémons
-    for (int a = 0; a < 9; a++){
+    for (int a = 0; a < quantidadePokemon; a++){
         CarregaPokemon(a);
         //Pokemon vivo
         PokemonSprite[a].setTexture(PokemonTexture[a]);
@@ -770,7 +787,8 @@ void Jogo::CarregaSons(){
 }
 
 void Jogo::CarregaPokemon(int a) {
-    char b = a + '0';
+    char b[2];
+    sprintf(b, "%d", a);
     char c[10] = "Morto";
     char d[10] = "Borda";
     char str1[200] = "Imagens/Pokemons/Pokemon";
@@ -778,16 +796,16 @@ void Jogo::CarregaPokemon(int a) {
     char str3[200] = "Imagens/Pokemons/Pokemon";
     char str4[200] = "Imagens/Pokemons/Pokemon";
 
-    str1[strlen(str1)] = b;
+    strcat(str1, b);
 
-    str2[strlen(str2)] = b;
+    strcat(str2, b);
     strcat(str2, c);
 
     strcat(str3, d);
-    str3[strlen(str3)] = b;
+    strcat(str3, b);
 
     strcat(str4, d);
-    str4[strlen(str4)] = b;
+    strcat(str4, b);
     strcat(str4, c);
 
     strcat(str1, ".png");
@@ -899,7 +917,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
             }else if (CenarioGinasio1){
                 PersonagemSprite.move((-Esquerda.x-120)*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
                     PersonagemSprite.move((+Esquerda.x+120)*delta,Esquerda.y);
             }else if(CenarioCentro){
                 PersonagemSprite.move((-Esquerda.x-120)*delta,Esquerda.y);
@@ -995,7 +1013,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
             }else if(CenarioGinasio1){
                 PersonagemSprite.move((+Direita.x+120)*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
                     PersonagemSprite.move((-Direita.x-120)*delta,Direita.y);
             }else if(CenarioCentro){
                 PersonagemSprite.move((+Direita.x+120)*delta,Direita.y);
@@ -1090,7 +1108,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
             }else if(CenarioGinasio1){
                 PersonagemSprite.move(Baixo.x,(+Baixo.y+120)*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,(-Baixo.y-120)*delta);
             }else if(CenarioCentro){
                 PersonagemSprite.move(Baixo.x,(+Baixo.y+120)*delta);
@@ -1195,7 +1213,7 @@ void Jogo::MovimentoPersonagem(){
                     PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
             }else if(CenarioGinasio1){
                 PersonagemSprite.move(Cima.x,(-Cima.y-120)*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2Sprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
             }
         }
@@ -1270,8 +1288,8 @@ void Jogo::Batalha(){
             }
 
             //Caso estiver no cenário da batalha, atualiza o pokemon adversário
-            if(CenarioBatalha && batalhaGinasio.getPokemon(5)->estaVivo()){
-                pokemonAdversarioBatalhando = (batalhaGinasio.pokemonQueVaiBatalhar(&posicaoAdversario));
+            if(CenarioBatalha && BatalhaGinasio1.getPokemon(5)->estaVivo()){
+                pokemonAdversarioBatalhando = (BatalhaGinasio1.pokemonQueVaiBatalhar(&posicaoAdversario));
             }
         }
     }
@@ -1450,7 +1468,6 @@ void Jogo::TelaPrimeiroCenario(){
     AlturaCentroAtualizada = AlturaCentro * EscalaCentro;
     LarguraCentroAtualizada = LarguraCentro * EscalaCentro;
 
-
     Centro2Sprite.setScale(EscalaCentro, EscalaCentro);
     Centro2Sprite.setPosition(300,40);
     AlturaCentroAtualizada2 = AlturaCentro2 * EscalaCentro;
@@ -1460,6 +1477,21 @@ void Jogo::TelaPrimeiroCenario(){
     PokemonsCapturaveis.CurarTodaLista();
 
     MovimentoPersonagem();
+
+    //Dispõe os matinhos em uma area da tela
+    for(i=0; i<16; i++){
+        for(int j=0; j<35; j++){
+            MatinhoSprite[i][j].setTexture(MatinhoTexture);
+            if(j == 0){
+                if(i == 0)
+                    MatinhoSprite[i][j].setPosition(150, 300);
+                else
+                    MatinhoSprite[i][j].setPosition(150, MatinhoSprite[i-1][j].getPosition().y + 17);
+            }
+            else
+                MatinhoSprite[i][j].setPosition(MatinhoSprite[i][j-1].getPosition().x + 17, MatinhoSprite[i][j-1].getPosition().y);
+        }
+    }
 
     //Sprite invisível para ir para o cenário da luta
     while(inicio && (InvisivelSprite[1].getGlobalBounds().intersects(InvisivelSprite[0].getGlobalBounds())
@@ -1557,7 +1589,7 @@ void Jogo::TelaPrimeiroCenario(){
         CenarioLuta = 1;
         PrimeiroCenario = 0;
         cenarioAnterior = 1;
-        PokemonLuta = rand() % 9;
+        PokemonLuta = rand() % 15;
     }
 }
 
@@ -1607,6 +1639,7 @@ void Jogo::TelaSegundoCenario(){
 
     window.clear();
     window.draw(SegundoCenarioSprite);
+    window.draw(ArvoresCutSprite);
     window.draw(CentroSprite);
     window.draw(Centro2Sprite);
     window.draw(Ginasio1Sprite);
@@ -1660,12 +1693,12 @@ void Jogo::TelaSegundoCenario(){
     else if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1Sprite.getGlobalBounds())){
         if(PersonagemSprite.getPosition().x > (Ginasio1Sprite.getPosition().x + 45*EscalaCentro) && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < (Ginasio1Sprite.getPosition().x + 70*EscalaCentro)){
             SegundoCenario = 0;
-            CenarioCentro = 1;
+            CenarioGinasio1 = 1;
             cenarioAnterior = 2;
-            PersonagemSprite.setScale(EscalaPersonagemCentro, EscalaPersonagemCentro);
-            AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemCentro;
-            LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagemCentro;
-            PersonagemSprite.setPosition(PersonagemSprite.getPosition().x + 100, 599 - AlturaPersonagemAtualizada);
+            PersonagemSprite.setScale(EscalaPersonagemGinasio, EscalaPersonagemGinasio);
+            AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemGinasio;
+            LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagemGinasio;
+            PersonagemSprite.setPosition(380, 579 - AlturaPersonagemAtualizada);
         }
     }/*
     //Se a personagem colidir com os sprites invisiveis, irá para a tela da batalha contra um pokemon aleatório
@@ -2113,7 +2146,8 @@ void Jogo::TelaCenarioGinasio1(){
     MovimentoPersonagem();
 
     window.clear();
-    window.draw(LiderGinasioSprite);
+    window.draw(CenarioGinasio1Sprite);
+    window.draw(LiderGinasio1Sprite);
     window.draw(PersonagemSprite);
     window.draw(BolsaSprite);
     //Mostra os pokemons na tela
@@ -2130,11 +2164,14 @@ void Jogo::TelaCenarioGinasio1(){
     }
     window.draw(QuantidadeMoedasSprite[moedas]);
     window.draw(QuantidadePokebolasSprite[pokebolas]);
+    window.draw(SomSprite);
+    window.display();
+
     //Caso a personagem colida com a líder do ginásio
-    if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasioSprite.getGlobalBounds())){
+    if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1Sprite.getGlobalBounds())){
         window.draw(AvisoLiderSprite);
         window.draw(BatalharSprite);
-        //PosicaoMouse();
+        PosicaoMouse();
         CenarioBatalha = AtualizaBotao(Event, position, BatalharSprite, rectSourceSprite);
 
         //Mudança de tela para cenário batalha
@@ -2147,15 +2184,15 @@ void Jogo::TelaCenarioGinasio1(){
     }
     window.draw(SomSprite);
     window.display();
-
+    
     //A personagem entra numa área específica da tela e vai para o cenário principal
-    if(PersonagemSprite.getPosition().x < 0 && (PersonagemSprite.getPosition().y > 150 &&  PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 255)){
-        PrimeiroCenario = 1;
+    if(PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada >= 580 && (PersonagemSprite.getPosition().x > 370 && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < 430)){
+        SegundoCenario = 1;
         CenarioGinasio1 = 0;
         PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
         AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
         LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagem;
-        PersonagemSprite.setPosition(800 - LarguraPersonagemAtualizada, PersonagemSprite.getPosition().y);
+        PersonagemSprite.setPosition(Ginasio1Sprite.getPosition().x + 45*EscalaCentro, Ginasio1Sprite.getPosition().y + 79*EscalaCentro);
     }
 }
 
@@ -2287,7 +2324,7 @@ void Jogo::TelaCenarioBatalha(){
     //Atualiza o pokemon aliado e inimigo
     if(botaoFugir){
         seuPokemonBatalhando = SeusPokemons.pokemonQueVaiBatalhar(&posicaoDoSeuPokemon);
-        pokemonAdversarioBatalhando = batalhaGinasio.pokemonQueVaiBatalhar(&posicaoAdversario);
+        pokemonAdversarioBatalhando = BatalhaGinasio1.pokemonQueVaiBatalhar(&posicaoAdversario);
     }
 
     PosicaoMouse();
@@ -2347,7 +2384,17 @@ void Jogo::TelaCenarioBatalha(){
         //Caso tenha ganho a batalha
         if(!pokemonAdversarioBatalhando->estaVivo()){
             CenarioBatalha = 0;
-            CenarioGanhou = 1;
+            SegundoCenario = 1;
+
+            ArvoresCutSprite.setPosition(850,221);
+            LiderGinasio1Sprite.setPosition(850,221);
+            LiderGinasio1ColisaoSprite.setPosition(850,221);
+
+            PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
+            AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
+            LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagem;
+            PersonagemSprite.setPosition(Ginasio1Sprite.getPosition().x + 45*EscalaCentro, Ginasio1Sprite.getPosition().y + 79*EscalaCentro);
+            //CenarioGanhou = 1;
         }
     }
     window.display();
@@ -2398,7 +2445,7 @@ void Jogo::TelaCenarioPerdeu(){
 
 void Jogo::Run(){
     //Cria a janela .exe
-    window.create(sf::VideoMode(LarguraTela, AlturaTela), "Pokemon", sf::Style::None);
+    window.create(sf::VideoMode(LarguraTela, AlturaTela), "Pokewomon", sf::Style::Close);
     window.setFramerateLimit(60); //Setar velocidade para qualquer computador
 
     //Carrega as imagens e sons
