@@ -11,6 +11,8 @@
 #include <SFML/Audio.hpp>
 
 #define quantidadePokemon 34
+#define qtdeColisoesGinasio1 10
+#define qtdeColisoesGinasio2 14
 
 class Jogo{
     public:
@@ -21,10 +23,13 @@ class Jogo{
         bool VerificaBotao(sf::Vector2i position, sf::Sprite Sprite);
         bool AtualizaBotao(sf::Event Event, sf::Vector2i position, sf::Sprite &Sprite, sf::IntRect rectSourceSprite);
         void CarregaImagens();
+        void CarregaColisoes(int a, int ginasio);
         void CarregaSons();
         void CarregaPokemon(int a);
         void PosicaoMouse();
         void MovimentoPersonagem();
+        //void ColisaoGinasio1(int direcao);
+        //void ColisaoGinasio2(int direcao);
         //Funções de ataque para a luta e batalha
         void AtaqueCompleto(Pokemon* seuPokemon, Pokemon* Oponente);
         void RecebeAtaque(Pokemon* seuPokemon, Pokemon* Oponente);
@@ -47,6 +52,8 @@ class Jogo{
         void TelaQuartoCenario();
         void TelaCenarioCentro();
         void TelaCenarioGinasio1();
+        void TelaCenarioGinasio2();
+        //void TelaCenarioGinasio3();
         void TelaCenarioLuta();
         void TelaCenarioBatalha();
         void TelaCenarioGanhou();
@@ -78,7 +85,7 @@ class Jogo{
 
         sf::Texture MatinhoTexture, Cerca1Texture, Cerca12Texture, Cerca22Texture, Cerca2Texture, 
         RioTexture, Arvore1Texture;
-        sf::Sprite MatinhoSprite[16][35], Cerca1Sprite, Cerca12Sprite, Cerca22Sprite, Cerca2Sprite, 
+        sf::Sprite Matinho1Sprite[16][35], Cerca1Sprite, Cerca12Sprite, Cerca22Sprite, Cerca2Sprite, 
         RioSprite, Arvore1Sprite;
 
         sf::Texture PlacaCentroTexture, AvisoPlacaCentroTexture, PlacaCenario2Texture, AvisoPlacaCenario2Texture;
@@ -86,7 +93,8 @@ class Jogo{
 
         //Segundo Cenário
         sf::Texture SegundoCenarioTexture, LagoTexture, MorroTexture;
-        sf::Sprite SegundoCenarioSprite, LagoSprite, MorroSprite;
+        sf::Sprite SegundoCenarioSprite, LagoSprite, MorroSprite, 
+        Matinho2CimaSprite[4][18], Matinho2EsquerdaSprite[14][7], Matinho2DireitaSprite[6][14];
 
         sf::Texture ArvoresBaixo1Texture, ArvoresBaixo2Texture, ArvoresCimaTexture, ArvoresDireitaTexture, 
         ArvoresEsquerdaTexture, ArvoresCutTexture, ArvoreTexture;
@@ -139,12 +147,15 @@ class Jogo{
         sf::Texture Ginasio1Texture, Ginasio1MenorTexture, LiderGinasio1Texture, LiderGinasio1ColisaoTexture;
         sf::Sprite Ginasio1Sprite, Ginasio1MenorSprite, LiderGinasio1Sprite, LiderGinasio1ColisaoSprite;
 
-        sf::Texture AvisoLiderTexture, BatalharTexture;
-        sf::Sprite AvisoLiderSprite, BatalharSprite;
+        sf::Texture AvisoLiderTexture, BatalharTexture, Ginasio1ColisoesTexture[qtdeColisoesGinasio1];
+        sf::Sprite AvisoLiderSprite, BatalharSprite, Ginasio1ColisoesSprite[qtdeColisoesGinasio1];
 
         //Cenario ginasio 2
         sf::Texture Ginasio2Texture, Ginasio2MenorTexture, LiderGinasio2Texture, LiderGinasio2ColisaoTexture;
         sf::Sprite Ginasio2Sprite, Ginasio2MenorSprite, LiderGinasio2Sprite, LiderGinasio2ColisaoSprite;
+
+        sf::Texture Ginasio2ColisoesTexture[qtdeColisoesGinasio2];
+        sf::Sprite Ginasio2ColisoesSprite[qtdeColisoesGinasio2];
 
         //Cenario ginasio 3
         sf::Texture LiderGinasio3Texture, LiderGinasio3ColisaoTexture;
@@ -162,7 +173,7 @@ class Jogo{
         PokemonBordaTexture[quantidadePokemon], PokemonBordaMortoTexture[quantidadePokemon], BolsaTexture, 
         ForteTexture, FracoTexture, MedioTexture;
 
-        sf::Sprite InvisivelSprite[2], PokemonSprite[quantidadePokemon], PokemonMortoSprite[quantidadePokemon], 
+        sf::Sprite InvisivelSprite[3], PokemonSprite[quantidadePokemon], PokemonMortoSprite[quantidadePokemon], 
         PokemonBordaSprite[quantidadePokemon], PokemonBordaMortoSprite[quantidadePokemon], BolsaSprite, 
         ForteSprite[2], FracoSprite[2], MedioSprite[2];
 

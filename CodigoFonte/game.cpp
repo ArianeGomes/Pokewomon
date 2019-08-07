@@ -22,6 +22,10 @@
 #define EscalaPokemonLuta 2.5
 #define EscalaPokemonBolsa 0.7
 #define quantidadePokemon 34
+#define qtdeColisoesGinasio1 10
+#define qtdeColisoesGinasio2 14
+
+enum direcoes {esquerda, direita, baixo, cima};
 
 Jogo::Jogo(){
     //Menu - botão
@@ -364,6 +368,7 @@ void Jogo::CarregaImagens(){
     InvisivelTexture.loadFromFile("Imagens/Pokemons/PokemonInvisivel.png");
     InvisivelSprite[0].setTexture(InvisivelTexture);
     InvisivelSprite[1].setTexture(InvisivelTexture);
+    InvisivelSprite[2].setTexture(InvisivelTexture);
 
     //Bolsa de pokémons
     BolsaTexture.loadFromFile("Imagens/Bolsa.png");
@@ -422,6 +427,7 @@ void Jogo::CarregaImagens(){
 
     ArvoresCutTexture.loadFromFile("Imagens/Colisao/ArvoresCut.png");
     ArvoresCutSprite.setTexture(ArvoresCutTexture);
+    ArvoresCutSprite.setPosition(800,221);
     ArvoresCutSprite.setPosition(333,221);
 
     ArvoreTexture.loadFromFile("Imagens/Colisao/Arvore.png");
@@ -440,9 +446,18 @@ void Jogo::CarregaImagens(){
     CercaVerticalSprite.setTexture(CercaVerticalTexture);
     CercaVerticalSprite.setPosition(327,18);
 
-        //***************************************************Terceiro Cenário
+    //***************************************************Terceiro Cenário
     TerceiroCenarioTexture.loadFromFile("Imagens/Cenarios/TerceiroCenario.png");
     TerceiroCenarioSprite.setTexture(TerceiroCenarioTexture);
+
+    //Ginásio do Terceiro Cenário
+    Ginasio2Texture.loadFromFile("Imagens/Colisao/Ginasio2.png");
+    Ginasio2Sprite.setTexture(Ginasio2Texture);
+    Ginasio2Sprite.setPosition(612,-7);
+
+    Ginasio2MenorTexture.loadFromFile("Imagens/Colisao/Ginasio2Menor.png");
+    Ginasio2MenorSprite.setTexture(Ginasio2MenorTexture);
+    Ginasio2MenorSprite.setPosition(612,-7);
 
     //Cantos do Terceiro Cenário
     CantoCimaTexture.loadFromFile("Imagens/Colisao/CantoCima.png");
@@ -476,7 +491,7 @@ void Jogo::CarregaImagens(){
 
     PedrasPassagemTexture.loadFromFile("Imagens/Colisao/PedrasPassagem.png");
     PedrasPassagemSprite.setTexture(PedrasPassagemTexture);
-    //PedrasPassagemSprite.setPosition(304, 225);
+    PedrasPassagemSprite.setPosition(304, 225);
 
     PedrasEsquerdaTexture.loadFromFile("Imagens/Colisao/PedrasEsquerda.png");
     PedrasEsquerdaSprite.setTexture(PedrasEsquerdaTexture);
@@ -638,6 +653,70 @@ void Jogo::CarregaImagens(){
     BatalharSprite = sf::Sprite(BatalharTexture, rectSourceSprite);
     BatalharSprite.setPosition(320, 520);
 
+    //Colisões ginásio 1
+    for (int a = 0; a < qtdeColisoesGinasio1; a++){
+        CarregaColisoes(a, 1);
+        Ginasio1ColisoesSprite[a].setTexture(Ginasio1ColisoesTexture[a]);
+    }
+
+    Ginasio1ColisoesSprite[0].setPosition(0,582);
+    Ginasio1ColisoesSprite[1].setPosition(0,0);
+    Ginasio1ColisoesSprite[2].setPosition(574,0);
+    Ginasio1ColisoesSprite[3].setPosition(0,0);
+    Ginasio1ColisoesSprite[4].setPosition(534,259);
+    Ginasio1ColisoesSprite[5].setPosition(198,299);
+    Ginasio1ColisoesSprite[6].setPosition(439,360);
+    Ginasio1ColisoesSprite[7].setPosition(183,360);
+    Ginasio1ColisoesSprite[8].setPosition(322,456);
+    Ginasio1ColisoesSprite[9].setPosition(447,455);
+
+    //***************************************************cenário ginásio 2
+    CenarioGinasio2Texture.loadFromFile("Imagens/Cenarios/CenarioGinasio2.png");
+    CenarioGinasio2Sprite.setTexture(CenarioGinasio2Texture);
+
+    //Lider ginásio
+    LiderGinasio2Texture.loadFromFile("Imagens/Personagens/LiderGinasio2.png");
+    LiderGinasio2Sprite.setTexture(LiderGinasio2Texture);
+    LiderGinasio2Sprite.setPosition(380,290);
+    LiderGinasio2Sprite.setScale(EscalaPersonagemGinasio, EscalaPersonagemGinasio);
+
+    LiderGinasio2ColisaoTexture.loadFromFile("Imagens/Personagens/LiderGinasio2Colisao.png");
+    LiderGinasio2ColisaoSprite.setTexture(LiderGinasio2ColisaoTexture);
+    LiderGinasio2ColisaoSprite.setPosition(380,290);
+    LiderGinasio2ColisaoSprite.setScale(EscalaPersonagemGinasio, EscalaPersonagemGinasio);
+    /*
+    //Aviso lider
+    AvisoLiderTexture.loadFromFile("Imagens/Avisos/AvisoLider.png");
+    AvisoLiderSprite.setTexture(AvisoLiderTexture);
+    AvisoLiderSprite.setPosition(95.5,450);
+
+    //botão batalhar com a líder
+    BatalharTexture.loadFromFile("Imagens/Botoes/BotaoDesafiar.png");
+    rectSourceSprite = sf::IntRect(0, 0, 201, 71); //Corta a imagem
+    BatalharSprite = sf::Sprite(BatalharTexture, rectSourceSprite);
+    BatalharSprite.setPosition(320, 520);
+    */
+
+    //Colisões ginásio 2
+    for (int a = 0; a < qtdeColisoesGinasio2; a++){
+        CarregaColisoes(a, 2);
+        Ginasio2ColisoesSprite[a].setTexture(Ginasio2ColisoesTexture[a]);
+    }
+
+    Ginasio2ColisoesSprite[0].setPosition(0,0);
+    Ginasio2ColisoesSprite[1].setPosition(0,543);
+    Ginasio2ColisoesSprite[2].setPosition(594,0);
+    Ginasio2ColisoesSprite[3].setPosition(0,0);
+    Ginasio2ColisoesSprite[4].setPosition(207,277);
+    Ginasio2ColisoesSprite[5].setPosition(521,269);
+    Ginasio2ColisoesSprite[6].setPosition(417,405);
+    Ginasio2ColisoesSprite[7].setPosition(348,405);
+    Ginasio2ColisoesSprite[8].setPosition(312,405);
+    Ginasio2ColisoesSprite[9].setPosition(451,404);
+    Ginasio2ColisoesSprite[10].setPosition(208,368);
+    Ginasio2ColisoesSprite[11].setPosition(487,368);
+    Ginasio2ColisoesSprite[12].setPosition(276,335);
+    Ginasio2ColisoesSprite[13].setPosition(417,335);
 
     //***************************************************cenário Luta
     CenarioLutaTexture.loadFromFile("Imagens/Cenarios/CenarioLuta.png");
@@ -760,6 +839,46 @@ void Jogo::CarregaImagens(){
     SomSprite.setTextureRect(sf::IntRect(Music*52, 0, 52, 54));
 }
 
+void Jogo::CarregaColisoes(int a, int ginasio){
+    char b[2];
+    sprintf(b, "%d", a);
+    char str[200];
+
+    switch (ginasio) {
+        case 1: 
+            strcpy(str, "Imagens/Ginasios/Ginasio1Colisao");
+
+            strcat(str, b);
+            strcat(str, ".png");
+
+            Ginasio1ColisoesTexture[a].loadFromFile(str); break;
+        case 2: 
+            strcpy(str, "Imagens/Ginasios/Ginasio2Colisao");
+
+            strcat(str, b);
+            strcat(str, ".png");
+
+            Ginasio2ColisoesTexture[a].loadFromFile(str); break;
+        /*
+        case 3: 
+            strcpy(str, "Imagens/Ginasios/Ginasio3Colisao");
+
+            strcat(str, b);
+            strcat(str, ".png");
+
+            Ginasio3ColisoesTexture[a].loadFromFile(str); break;
+        case 4: 
+            strcpy(str, "Imagens/Ginasios/Ginasio4Colisao");
+
+            strcat(str, b);
+            strcat(str, ".png");
+
+            Ginasio4ColisoesTexture[a].loadFromFile(str); break;
+        */
+    }
+
+}
+
 void Jogo::CarregaSons(){
     //música principal
     PrincipalMusic.openFromFile("Som/PrimeiroCenarioSom.wav");
@@ -833,93 +952,76 @@ void Jogo::MovimentoPersonagem(){
         //Verifica se não está no fim da tela pela esquerda
         if(PersonagemSprite.getPosition().x > 0){
             AtualizaPersonagem.y = 2;
-            if(PrimeiroCenario){
+            if (PrimeiroCenario){
                 PersonagemSprite.move(-Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
             }else if (SegundoCenario) {
                 PersonagemSprite.move(-Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
             }else if (TerceiroCenario){
                 PersonagemSprite.move(-Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio2MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
             }else if (QuartoCenario){
                 PersonagemSprite.move(-Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
             }else if (CenarioGinasio1){
-                PersonagemSprite.move((-Esquerda.x-120)*delta,Esquerda.y);
+                PersonagemSprite.move((-Esquerda.x-80)*delta,Esquerda.y);
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[0].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[1].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[2].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[3].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[4].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[5].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[6].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[7].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[8].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[9].getGlobalBounds()))
+                    PersonagemSprite.move((+Esquerda.x+80)*delta,Esquerda.y);
+            }else if (CenarioGinasio2){
+                PersonagemSprite.move((-Esquerda.x-80)*delta,Esquerda.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
-                    PersonagemSprite.move((+Esquerda.x+120)*delta,Esquerda.y);
-            }else if(CenarioCentro){
+                    PersonagemSprite.move((+Esquerda.x+80)*delta,Esquerda.y);
+            }else if (CenarioCentro){
                 PersonagemSprite.move((-Esquerda.x-120)*delta,Esquerda.y);
             }
         }
@@ -931,90 +1033,73 @@ void Jogo::MovimentoPersonagem(){
             AtualizaPersonagem.y = 3;
             if(PrimeiroCenario){
                 PersonagemSprite.move(Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
             }else if(SegundoCenario) {
                 PersonagemSprite.move(Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
             }else if (TerceiroCenario){
                 PersonagemSprite.move(Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio2MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
             }else if (QuartoCenario){
                 PersonagemSprite.move(+Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(-Direita.x*delta,Direita.y);
             }else if(CenarioGinasio1){
-                PersonagemSprite.move((+Direita.x+120)*delta,Direita.y);
+                PersonagemSprite.move((+Direita.x+80)*delta,Direita.y);
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[0].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[1].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[2].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[3].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[4].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[5].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[6].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[7].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[8].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[9].getGlobalBounds()))
+                    PersonagemSprite.move((-Direita.x-80)*delta,Direita.y);
+            }else if(CenarioGinasio2){
+                PersonagemSprite.move((+Direita.x+80)*delta,Direita.y);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
-                    PersonagemSprite.move((-Direita.x-120)*delta,Direita.y);
+                    PersonagemSprite.move((-Direita.x-80)*delta,Direita.y);
             }else if(CenarioCentro){
                 PersonagemSprite.move((+Direita.x+120)*delta,Direita.y);
             }
@@ -1026,87 +1111,70 @@ void Jogo::MovimentoPersonagem(){
             AtualizaPersonagem.y = 1;
             if(PrimeiroCenario){
                 PersonagemSprite.move(Baixo.x,+Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
             }else if (SegundoCenario){
                 PersonagemSprite.move(Baixo.x,+Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
             }else if (TerceiroCenario){
                 PersonagemSprite.move(Baixo.x,+Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio2MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
             }else if (QuartoCenario){
                 PersonagemSprite.move(Baixo.x,+Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
             }else if(CenarioGinasio1){
+                PersonagemSprite.move(Baixo.x,(+Baixo.y+120)*delta);
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds())
+                //|| PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[0].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[1].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[2].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[3].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[4].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[5].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[6].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[7].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[8].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[9].getGlobalBounds()))
+                    PersonagemSprite.move(Baixo.x,(-Baixo.y-120)*delta);
+            }else if(CenarioGinasio2){
                 PersonagemSprite.move(Baixo.x,(+Baixo.y+120)*delta);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
                     PersonagemSprite.move(Baixo.x,(-Baixo.y-120)*delta);
@@ -1121,99 +1189,79 @@ void Jogo::MovimentoPersonagem(){
             AtualizaPersonagem.y = 0;
             if(PrimeiroCenario){
                 PersonagemSprite.move(Cima.x,-Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(RioSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca12Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Cerca22Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,+Cima.y*delta);
             }else if(SegundoCenario) {
                 PersonagemSprite.move(Cima.x,-Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresBaixo2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoreSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(ArvoresCutSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaHorizontal2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CercaVerticalSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(LagoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(MorroSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,+Cima.y*delta);
             }else if (TerceiroCenario){
                 PersonagemSprite.move(Cima.x,-Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(CantoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(CantoInferior3Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasDireita2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasPassagemSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PedrasEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio2MenorSprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,+Cima.y*delta);
             }else if (QuartoCenario){
                 PersonagemSprite.move(Cima.x,-Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds()))
+                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoExternoBaixoSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoCimaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoEsquerdaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoDireitaSprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo1Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(OceanoInternoBaixo2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
-            }else if(CenarioCentro){
-                PersonagemSprite.move(Cima.x,(-Cima.y-120)*delta);
-                if(PersonagemSprite.getGlobalBounds().intersects(BalcaoCentro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
-                else if(PersonagemSprite.getGlobalBounds().intersects(MesaCentro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
-                else if(PersonagemSprite.getGlobalBounds().intersects(PlantaCentro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
-                else if(PersonagemSprite.getGlobalBounds().intersects(MaquinaCentro2Sprite.getGlobalBounds()))
-                    PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
             }else if(CenarioGinasio1){
                 PersonagemSprite.move(Cima.x,(-Cima.y-120)*delta);
+                if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[0].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[1].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[2].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[3].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[4].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[5].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[6].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[7].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[8].getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[9].getGlobalBounds()))
+                    PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
+            }else if(CenarioGinasio2){
+                PersonagemSprite.move(Cima.x,(-Cima.y-120)*delta);
                 if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio1ColisaoSprite.getGlobalBounds()))
+                    PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
+            }else if(CenarioCentro){
+                PersonagemSprite.move(Cima.x,(-Cima.y-120)*delta);
+                if(PersonagemSprite.getGlobalBounds().intersects(BalcaoCentro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(MesaCentro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(PlantaCentro2Sprite.getGlobalBounds())
+                || PersonagemSprite.getGlobalBounds().intersects(MaquinaCentro2Sprite.getGlobalBounds()))
                     PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
             }
         }
@@ -1236,12 +1284,61 @@ void Jogo::MovimentoPersonagem(){
 
     //Realiza a alteração da imagem da personagem dependendo do lado para qual está indo
     //Verifica se a personagem está na area do matinho, se sim, só mostra a imagem da sua cabeça
-    if((PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada - 12 > 300 && PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 300 + 272) &&
-       (PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 > 150 && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 < 150 + 595) && PrimeiroCenario)
+    if((PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada - 12 > 300
+    && PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 300 + 272) 
+    && (PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 > 150
+    && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada/2 < 150 + 595)
+    && PrimeiroCenario)
         PersonagemSprite.setTextureRect(sf::IntRect(AtualizaPersonagem.x*27, AtualizaPersonagem.y*31, 27, 31-12));
     else
         PersonagemSprite.setTextureRect(sf::IntRect(AtualizaPersonagem.x*27, AtualizaPersonagem.y*31, 27, 31));
 }
+/*
+void Jogo::ColisaoGinasio1(int direcao){
+    for (int a = 0; a < qtdeColisoesGinasio1; a++) {
+        switch (direcao) {
+            case 0: //Esquerda
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move((+Esquerda.x+120)*delta,Esquerda.y);
+                break;
+            case 1: //Direita
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move((-Direita.x-120)*delta,Direita.y);
+                break;
+            case 2: //Baixo
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move(Baixo.x,(-Baixo.y-120)*delta);
+                break;
+            case 3: //Cima
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move(Cima.x,(+Cima.y+120)*delta);
+                break;
+        }
+    }
+}
+/*
+void Jogo::ColisaoGinasio2(int direcao){
+    for (int a = 0; a < qtdeColisoesGinasio2; a++) {
+        switch (direcao) {
+            case 0: //Esquerda
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio2ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move(+Esquerda.x*delta,Esquerda.y);
+                break;
+            case 1: //Direita
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio2ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move(-Direita.x*delta,Direita.y);
+                break;
+            case 2: //Baixo
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio2ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move(Baixo.x,-Baixo.y*delta);
+                break;
+            case 3: //Cima
+                if(PersonagemSprite.getGlobalBounds().intersects(Ginasio2ColisoesSprite[a].getGlobalBounds()))
+                    PersonagemSprite.move(Cima.x,+Cima.y*delta);
+                break;
+        }
+    }
+}*/
 
 //diminui a sua vida de acordo com o ataque do oponente
 void Jogo::RecebeAtaque(Pokemon* seuPokemon, Pokemon* Oponente){
@@ -1308,12 +1405,12 @@ void Jogo::setQntMoedas(int valor){
      }
 }
 
-int Jogo::derrubaMoedas(int idOponente){
-    if(idOponente == 0 || idOponente == 1 || idOponente == 2)
+int Jogo::derrubaMoedas(int atkOponente){
+    if(atkOponente == 1)
         return 1;
-    if(idOponente == 3 || idOponente == 4 || idOponente == 5)
+    else if(atkOponente == 2)
         return 2;
-    if(idOponente == 6 || idOponente == 7 || idOponente == 8)
+    else if(atkOponente == 3)
         return 3;
     return 0;
 }
@@ -1481,15 +1578,15 @@ void Jogo::TelaPrimeiroCenario(){
     //Dispõe os matinhos em uma area da tela
     for(i=0; i<16; i++){
         for(int j=0; j<35; j++){
-            MatinhoSprite[i][j].setTexture(MatinhoTexture);
+            Matinho1Sprite[i][j].setTexture(MatinhoTexture);
             if(j == 0){
                 if(i == 0)
-                    MatinhoSprite[i][j].setPosition(150, 300);
+                    Matinho1Sprite[i][j].setPosition(150, 300);
                 else
-                    MatinhoSprite[i][j].setPosition(150, MatinhoSprite[i-1][j].getPosition().y + 17);
+                    Matinho1Sprite[i][j].setPosition(150, Matinho1Sprite[i-1][j].getPosition().y + 17);
             }
             else
-                MatinhoSprite[i][j].setPosition(MatinhoSprite[i][j-1].getPosition().x + 17, MatinhoSprite[i][j-1].getPosition().y);
+                Matinho1Sprite[i][j].setPosition(Matinho1Sprite[i][j-1].getPosition().x + 17, Matinho1Sprite[i][j-1].getPosition().y);
         }
     }
 
@@ -1497,8 +1594,8 @@ void Jogo::TelaPrimeiroCenario(){
     while(inicio && (InvisivelSprite[1].getGlobalBounds().intersects(InvisivelSprite[0].getGlobalBounds())
         || PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[0].getGlobalBounds())
         || PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[1].getGlobalBounds()))){
-        InvisivelSprite[0].setPosition(150 + (rand() % 228), 300 + (rand() %  136));
-        InvisivelSprite[1].setPosition(378 + (rand() % 228), 300 + (rand() %  136));
+        InvisivelSprite[0].setPosition(150 + (rand() % 268), 300 + (rand() %  176));
+        InvisivelSprite[1].setPosition(378 + (rand() % 268), 300 + (rand() %  176));
     }
 
     //Para não entrar no while acima, já que será sorteado novamente na função luta
@@ -1516,11 +1613,11 @@ void Jogo::TelaPrimeiroCenario(){
     //Altera a imagem do matinho para dar a impressão de movimento
     for(i=0; i<16; i++){
         for(int j=0; j<35; j++){
-            if(PersonagemSprite.getGlobalBounds().intersects(MatinhoSprite[i][j].getGlobalBounds()))
-                MatinhoSprite[i][j].setTextureRect(sf::IntRect(16, 0, 16, 16));
+            if(PersonagemSprite.getGlobalBounds().intersects(Matinho1Sprite[i][j].getGlobalBounds()))
+                Matinho1Sprite[i][j].setTextureRect(sf::IntRect(16, 0, 16, 16));
             else
-                MatinhoSprite[i][j].setTextureRect(sf::IntRect(0, 0, 16, 16));
-            window.draw(MatinhoSprite[i][j]);
+                Matinho1Sprite[i][j].setTextureRect(sf::IntRect(0, 0, 16, 16));
+            window.draw(Matinho1Sprite[i][j]);
         }
     }
 
@@ -1569,6 +1666,9 @@ void Jogo::TelaPrimeiroCenario(){
     if(PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada >= LarguraTela && (PersonagemSprite.getPosition().y > 150 &&  PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 205)){
         PrimeiroCenario = 0;
         SegundoCenario = 1;
+        InvisivelSprite[0].setPosition(346 + (rand() % 196), 20 + (rand() % 40));
+        InvisivelSprite[1].setPosition(65 + (rand() % 40), 340 + (rand() %  126));
+        InvisivelSprite[2].setPosition(426 + (rand() % 135), 388 + (rand() % 10));
         PersonagemSprite.setPosition(0, 30);
     }
     //A personagem entra em uma área especifica da tela e vai para o cenário do centro
@@ -1639,6 +1739,100 @@ void Jogo::TelaSegundoCenario(){
 
     window.clear();
     window.draw(SegundoCenarioSprite);
+
+    //Curar pokemons que você está batalhando
+    PokemonsCapturaveis.CurarTodaLista();
+
+    //Dispõe os matinhos em uma area da tela
+    for(i=0; i<4; i++){
+        for(int j=0; j<18; j++){
+            Matinho2CimaSprite[i][j].setTexture(MatinhoTexture);
+            if(j == 0){
+                if(i == 0)
+                    Matinho2CimaSprite[i][j].setPosition(346, 36);
+                else
+                    Matinho2CimaSprite[i][j].setPosition(346, Matinho2CimaSprite[i-1][j].getPosition().y + 17);
+            }
+            else
+                Matinho2CimaSprite[i][j].setPosition(Matinho2CimaSprite[i][j-1].getPosition().x + 17, Matinho2CimaSprite[i][j-1].getPosition().y);
+        }
+    }
+
+    //Dispõe os matinhos em uma area da tela
+    for(i=0; i<14; i++){
+        for(int j=0; j<7; j++){
+            Matinho2EsquerdaSprite[i][j].setTexture(MatinhoTexture);
+            if(j == 0){
+                if(i == 0)
+                    Matinho2EsquerdaSprite[i][j].setPosition(74, 340);
+                else
+                    Matinho2EsquerdaSprite[i][j].setPosition(74, Matinho2EsquerdaSprite[i-1][j].getPosition().y + 17);
+            }
+            else
+                Matinho2EsquerdaSprite[i][j].setPosition(Matinho2EsquerdaSprite[i][j-1].getPosition().x + 17, Matinho2EsquerdaSprite[i][j-1].getPosition().y);
+        }
+    }
+
+    //Dispõe os matinhos em uma area da tela
+    for(i=0; i<6; i++){
+        for(int j=0; j<14; j++){
+            Matinho2DireitaSprite[i][j].setTexture(MatinhoTexture);
+            if(j == 0){
+                if(i == 0)
+                    Matinho2DireitaSprite[i][j].setPosition(426, 388);
+                else
+                    Matinho2DireitaSprite[i][j].setPosition(426, Matinho2DireitaSprite[i-1][j].getPosition().y + 17);
+            }
+            else
+                Matinho2DireitaSprite[i][j].setPosition(Matinho2DireitaSprite[i][j-1].getPosition().x + 17, Matinho2DireitaSprite[i][j-1].getPosition().y);
+        }
+    }
+
+    //Sprite invisível para ir para o cenário da luta
+    while(inicio && (PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[0].getGlobalBounds())
+        || PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[1].getGlobalBounds())
+        || PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[2].getGlobalBounds()))){
+        InvisivelSprite[0].setPosition(346 + (rand() % 196), 20 + (rand() % 40));
+        InvisivelSprite[1].setPosition(65 + (rand() % 40), 340 + (rand() %  126));
+        InvisivelSprite[2].setPosition(426 + (rand() % 135), 388 + (rand() % 10));
+    }
+
+    //Para não entrar no while acima, já que será sorteado novamente na função luta
+    inicio = 0;
+
+    //Seta a posição e a escala do pokemon escolhido
+    PokemonSprite[PokemonEscolha].setPosition(499, 13);
+    PokemonSprite[PokemonEscolha].setScale(EscalaPokemonBolsa, EscalaPokemonBolsa);
+
+    //Altera a imagem do matinho para dar a impressão de movimento
+    for(i=0; i<4; i++){
+        for(int j=0; j<18; j++){
+            if(PersonagemSprite.getGlobalBounds().intersects(Matinho2CimaSprite[i][j].getGlobalBounds()))
+                Matinho2CimaSprite[i][j].setTextureRect(sf::IntRect(16, 0, 16, 16));
+            else
+                Matinho2CimaSprite[i][j].setTextureRect(sf::IntRect(0, 0, 16, 16));
+            window.draw(Matinho2CimaSprite[i][j]);
+        }
+    }
+    for(i=0; i<14; i++){
+        for(int j=0; j<7; j++){
+            if(PersonagemSprite.getGlobalBounds().intersects(Matinho2EsquerdaSprite[i][j].getGlobalBounds()))
+                Matinho2EsquerdaSprite[i][j].setTextureRect(sf::IntRect(16, 0, 16, 16));
+            else
+                Matinho2EsquerdaSprite[i][j].setTextureRect(sf::IntRect(0, 0, 16, 16));
+            window.draw(Matinho2EsquerdaSprite[i][j]);
+        }
+    }
+    for(i=0; i<6; i++){
+        for(int j=0; j<14; j++){
+            if(PersonagemSprite.getGlobalBounds().intersects(Matinho2DireitaSprite[i][j].getGlobalBounds()))
+                Matinho2DireitaSprite[i][j].setTextureRect(sf::IntRect(16, 0, 16, 16));
+            else
+                Matinho2DireitaSprite[i][j].setTextureRect(sf::IntRect(0, 0, 16, 16));
+            window.draw(Matinho2DireitaSprite[i][j]);
+        }
+    }
+
     window.draw(ArvoresCutSprite);
     window.draw(CentroSprite);
     window.draw(Centro2Sprite);
@@ -1669,6 +1863,9 @@ void Jogo::TelaSegundoCenario(){
     if(PersonagemSprite.getPosition().x < 0 && (PersonagemSprite.getPosition().y > 10 &&  PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada < 107)){
         PrimeiroCenario = 1;
         SegundoCenario = 0;
+        InvisivelSprite[0].setPosition(150 + (rand() % 268), 300 + (rand() %  176));
+        InvisivelSprite[1].setPosition(378 + (rand() % 268), 300 + (rand() %  176));
+        InvisivelSprite[2].setPosition(800, 600);
         PersonagemSprite.setPosition(LarguraTela - LarguraPersonagemAtualizada, 155);
     }
     //A personagem entra em uma área especifica da tela e vai para o terceiro cenário
@@ -1698,17 +1895,18 @@ void Jogo::TelaSegundoCenario(){
             PersonagemSprite.setScale(EscalaPersonagemGinasio, EscalaPersonagemGinasio);
             AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemGinasio;
             LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagemGinasio;
-            PersonagemSprite.setPosition(380, 579 - AlturaPersonagemAtualizada);
+            PersonagemSprite.setPosition(380, 549 - AlturaPersonagemAtualizada);
         }
-    }/*
+    }
     //Se a personagem colidir com os sprites invisiveis, irá para a tela da batalha contra um pokemon aleatório
     else if(PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[0].getGlobalBounds()) ||
-       PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[1].getGlobalBounds())){
+       PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[1].getGlobalBounds()) ||
+       PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[2].getGlobalBounds())){
         CenarioLuta = 1;
         SegundoCenario = 0;
         cenarioAnterior = 2;
-        PokemonLuta = rand() % 9;
-    }*/
+        PokemonLuta = 9 + (rand() % 13);
+    }
 }
 
 void Jogo::TelaTerceiroCenario(){
@@ -1743,6 +1941,9 @@ void Jogo::TelaTerceiroCenario(){
 
     MovimentoPersonagem();
 
+    Ginasio2Sprite.setScale(EscalaCentro, EscalaCentro);
+    Ginasio2MenorSprite.setScale(EscalaCentro, EscalaCentro);
+
     window.clear();
     window.draw(TerceiroCenarioSprite);
     window.draw(CantoCimaSprite);
@@ -1753,7 +1954,18 @@ void Jogo::TelaTerceiroCenario(){
     window.draw(PedrasDireita1Sprite);
     window.draw(PedrasDireita2Sprite);
     window.draw(PedrasEsquerdaSprite);
-    //window.draw(PedrasPassagemSprite);
+
+    CentroSprite.setScale(EscalaCentro, EscalaCentro);
+    CentroSprite.setPosition(491,269);
+    AlturaCentroAtualizada = AlturaCentro * EscalaCentro;
+    LarguraCentroAtualizada = LarguraCentro * EscalaCentro;
+
+    Centro2Sprite.setScale(EscalaCentro, EscalaCentro);
+    Centro2Sprite.setPosition(491,269);
+
+    window.draw(CentroSprite);
+    window.draw(PedrasPassagemSprite);
+    window.draw(Ginasio2Sprite);
     window.draw(PersonagemSprite);
     window.draw(BolsaSprite);
 
@@ -1780,6 +1992,9 @@ void Jogo::TelaTerceiroCenario(){
     if(PersonagemSprite.getPosition().y <= 0 && (PersonagemSprite.getPosition().x > 200 && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < 600)){
         SegundoCenario = 1;
         TerceiroCenario = 0;
+        InvisivelSprite[0].setPosition(346 + (rand() % 196), 20 + (rand() % 40));
+        InvisivelSprite[1].setPosition(65 + (rand() % 40), 340 + (rand() %  126));
+        InvisivelSprite[2].setPosition(426 + (rand() % 135), 388 + (rand() % 10));
         PersonagemSprite.setPosition(360, 599 - AlturaPersonagemAtualizada);
     }
     //A personagem entra em uma área especifica da tela e vai para o quarto cenário
@@ -1788,12 +2003,12 @@ void Jogo::TelaTerceiroCenario(){
         TerceiroCenario = 0;
         PersonagemSprite.setPosition(400, 0);
     }
-    /*A personagem entra em uma área especifica da tela e vai para o cenário do centro
-    else if(PersonagemSprite.getGlobalBounds().intersects(CentroSprite.getGlobalBounds())){
-        if(PersonagemSprite.getPosition().x > (CentroSprite.getPosition().x + 25*EscalaCentro) && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < (Centro2Sprite.getPosition().x + 50*EscalaCentro)){
-            SegundoCenario = 0;
+    //A personagem entra em uma área especifica da tela e vai para o cenário do centro
+    else if(PersonagemSprite.getGlobalBounds().intersects(Centro2Sprite.getGlobalBounds())){
+        if(PersonagemSprite.getPosition().x > (CentroSprite.getPosition().x + 25*EscalaCentro) && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < (CentroSprite.getPosition().x + 50*EscalaCentro)){
+            TerceiroCenario = 0;
             CenarioCentro = 1;
-            cenarioAnterior = 2;
+            cenarioAnterior = 3;
             PersonagemSprite.setScale(EscalaPersonagemCentro, EscalaPersonagemCentro);
             AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemCentro;
             LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagemCentro;
@@ -1801,24 +2016,24 @@ void Jogo::TelaTerceiroCenario(){
         }
     }
     //A personagem entra em uma área especifica da tela e vai para o cenário do primeiro ginásio
-    else if(PersonagemSprite.getGlobalBounds().intersects(Ginasio1Sprite.getGlobalBounds())){
-        if(PersonagemSprite.getPosition().x > (Ginasio1Sprite.getPosition().x + 45*EscalaCentro) && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < (Ginasio1Sprite.getPosition().x + 70*EscalaCentro)){
-            SegundoCenario = 0;
-            CenarioCentro = 1;
-            cenarioAnterior = 2;
-            PersonagemSprite.setScale(EscalaPersonagemCentro, EscalaPersonagemCentro);
-            AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemCentro;
-            LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagemCentro;
-            PersonagemSprite.setPosition(PersonagemSprite.getPosition().x + 100, 599 - AlturaPersonagemAtualizada);
+    else if(PersonagemSprite.getGlobalBounds().intersects(Ginasio2Sprite.getGlobalBounds())){
+        if(PersonagemSprite.getPosition().x > (Ginasio2Sprite.getPosition().x + 45*EscalaCentro) && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < (Ginasio2Sprite.getPosition().x + 70*EscalaCentro)){
+            TerceiroCenario = 0;
+            CenarioGinasio2 = 1;
+            cenarioAnterior = 3;
+            PersonagemSprite.setScale(EscalaPersonagemGinasio, EscalaPersonagemGinasio);
+            AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagemGinasio;
+            LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagemGinasio;
+            PersonagemSprite.setPosition(415 - LarguraPersonagemAtualizada, 599 - AlturaPersonagemAtualizada);
         }
-    }*//*
+    }/*
     //Se a personagem colidir com os sprites invisiveis, irá para a tela da batalha contra um pokemon aleatório
     else if(PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[0].getGlobalBounds()) ||
        PersonagemSprite.getGlobalBounds().intersects(InvisivelSprite[1].getGlobalBounds())){
         CenarioLuta = 1;
-        SegundoCenario = 0;
-        cenarioAnterior = 2;
-        PokemonLuta = rand() % 9;
+        TerceiroCenario = 0;
+        cenarioAnterior = 3;
+        PokemonLuta = 22 + (rand() % 6);
     }*/
 }
 
@@ -2106,7 +2321,7 @@ void Jogo::TelaCenarioCentro(){
             TerceiroCenario = 1;
             CenarioCentro = 0;
             cenarioAnterior = 0;
-            PersonagemSprite.setPosition(PersonagemSprite.getPosition().x, CentroSprite.getPosition().y + AlturaCentroAtualizada);
+            PersonagemSprite.setPosition(550, 409);
         }
         PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
         AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
@@ -2150,6 +2365,7 @@ void Jogo::TelaCenarioGinasio1(){
     window.draw(LiderGinasio1Sprite);
     window.draw(PersonagemSprite);
     window.draw(BolsaSprite);
+
     //Mostra os pokemons na tela
     for(int a = 0; a < SeusPokemons.getQtdeAtual(); a++){
         if(!SeusPokemons.getPokemon(a)->estaVivo()){
@@ -2179,7 +2395,87 @@ void Jogo::TelaCenarioGinasio1(){
             CenarioGinasio1 = 0;
             CenarioBatalha = 1;
             CenarioLuta = 0;
-            PrimeiroCenario = 0;
+            SegundoCenario = 0;
+        }
+    }
+    window.draw(SomSprite);
+    window.display();
+    
+    //A personagem entra numa área específica da tela e vai para o cenário principal
+    if(PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada >= 550 && (PersonagemSprite.getPosition().x > 370 && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < 430)){
+        SegundoCenario = 1;
+        CenarioGinasio1 = 0;
+        PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
+        AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
+        LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagem;
+        PersonagemSprite.setPosition(Ginasio1Sprite.getPosition().x + 45*EscalaCentro, Ginasio1Sprite.getPosition().y + 79*EscalaCentro);
+    }
+}
+
+void Jogo::TelaCenarioGinasio2(){
+    PosicaoMouse();
+
+    if(Event.type == sf::Event::MouseButtonPressed){
+        if(VerificaBotao(position, SomSprite)){
+            if(Music == 0){
+                Music = 1;
+            }
+            else if(Music == 1){
+                Music = 0;
+            }
+            SomSprite.setTextureRect(sf::IntRect(Music*52, 0, 52, 54));
+            //Delay para o click de cima n pegar o de baixo
+            sf::Time delayTime = sf::milliseconds(150);
+            sf::sleep(delayTime);
+        }
+    }
+
+    //Verifica a música
+    if(Music){
+        if(!PrincipalMusic.getStatus()){
+            PrincipalMusic.play();
+        }else if((CentroMusic.getStatus() == 2) || (LutaMusic.getStatus() == 2)){
+            CentroMusic.stop();
+            LutaMusic.stop();
+        }
+    }else
+        PrincipalMusic.stop();
+
+    MovimentoPersonagem();
+
+    window.clear();
+    window.draw(CenarioGinasio2Sprite);
+    window.draw(LiderGinasio2Sprite);
+    window.draw(PersonagemSprite);
+    window.draw(BolsaSprite);
+    //Mostra os pokemons na tela
+    for(int a = 0; a < SeusPokemons.getQtdeAtual(); a++){
+        if(!SeusPokemons.getPokemon(a)->estaVivo()){
+            PokemonMortoSprite[SeusPokemons.getPokemon(a)->getID()].setPosition(499+a*41, 13);
+            PokemonMortoSprite[SeusPokemons.getPokemon(a)->getID()].setScale(EscalaPokemonBolsa, EscalaPokemonBolsa);
+            window.draw(PokemonMortoSprite[SeusPokemons.getPokemon(a)->getID()]);
+        }else{
+            PokemonSprite[SeusPokemons.getPokemon(a)->getID()].setPosition(499+a*41, 13);
+            PokemonSprite[SeusPokemons.getPokemon(a)->getID()].setScale(EscalaPokemonBolsa, EscalaPokemonBolsa);
+            window.draw(PokemonSprite[SeusPokemons.getPokemon(a)->getID()]);
+        }
+    }
+    window.draw(QuantidadeMoedasSprite[moedas]);
+    window.draw(QuantidadePokebolasSprite[pokebolas]);
+
+    //Caso a personagem colida com a líder do ginásio
+    if(PersonagemSprite.getGlobalBounds().intersects(LiderGinasio2ColisaoSprite.getGlobalBounds())){
+        window.draw(AvisoLiderSprite);
+        window.draw(BatalharSprite);
+        PosicaoMouse();
+        CenarioBatalha = AtualizaBotao(Event, position, BatalharSprite, rectSourceSprite);
+
+        //Mudança de tela para cenário batalha
+        if(CenarioBatalha){
+            CenarioGinasio2 = 0;
+            CenarioBatalha = 1;
+            CenarioLuta = 0;
+            TerceiroCenario = 0;
         }
     }
     window.draw(SomSprite);
@@ -2187,12 +2483,12 @@ void Jogo::TelaCenarioGinasio1(){
     
     //A personagem entra numa área específica da tela e vai para o cenário principal
     if(PersonagemSprite.getPosition().y + AlturaPersonagemAtualizada >= 580 && (PersonagemSprite.getPosition().x > 370 && PersonagemSprite.getPosition().x + LarguraPersonagemAtualizada < 430)){
-        SegundoCenario = 1;
-        CenarioGinasio1 = 0;
+        TerceiroCenario = 1;
+        CenarioGinasio2 = 0;
         PersonagemSprite.setScale(EscalaPersonagem, EscalaPersonagem);
         AlturaPersonagemAtualizada = AlturaPersonagem * EscalaPersonagem;
         LarguraPersonagemAtualizada = LarguraPersonagem * EscalaPersonagem;
-        PersonagemSprite.setPosition(Ginasio1Sprite.getPosition().x + 45*EscalaCentro, Ginasio1Sprite.getPosition().y + 79*EscalaCentro);
+        PersonagemSprite.setPosition(Ginasio2Sprite.getPosition().x + 45*EscalaCentro, Ginasio2Sprite.getPosition().y + 79*EscalaCentro);
     }
 }
 
@@ -2231,7 +2527,7 @@ void Jogo::TelaCenarioLuta(){
         PokemonAdversarioSprite[PokemonLuta].setPosition(535, 180);
         PokemonAdversarioSprite[PokemonLuta].setScale(EscalaPokemonLuta, EscalaPokemonLuta);
 
-        //Seta a posição e a escola do pokemon aliado
+        //Seta a posição e a escala do pokemon aliado
         PokemonSprite[seuPokemonBatalhando->getID()].setPosition(120, 310);
         PokemonSprite[seuPokemonBatalhando->getID()].setScale(EscalaPokemonLuta, EscalaPokemonLuta);
 
@@ -2285,7 +2581,7 @@ void Jogo::TelaCenarioLuta(){
         if(!pokemonAdversarioBatalhando->estaVivo()){
             if (SeusPokemons.getTamanho() < 20)
                 CapturarPokemon(pokemonAdversarioBatalhando);
-            setQntMoedas(derrubaMoedas(pokemonAdversarioBatalhando->getID()));
+            setQntMoedas(derrubaMoedas(pokemonAdversarioBatalhando->getAtaque()));
         }
 
         //Atualiza a variável auxiliar para verificar se fugiu e volta para o cenário principal
@@ -2506,6 +2802,14 @@ void Jogo::Run(){
             else if(CenarioGinasio1){
                 TelaCenarioGinasio1();
             }
+            //Cenário para entrar no ginásio
+            else if(CenarioGinasio2){
+                TelaCenarioGinasio2();
+            }
+            /*//Cenário para entrar no ginásio
+            else if(CenarioGinasio3){
+                TelaCenarioGinasio3();
+            }*/
             //Cenário para lutar na batalha
             else if(CenarioLuta) {
                 TelaCenarioLuta();
