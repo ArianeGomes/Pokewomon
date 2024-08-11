@@ -14,8 +14,6 @@ vencidas. Vale destacar que só é possível realizar capturas caso possua-se pe
 pokébola, as quais são compradas no Centro Pokéwomon, no qual também é feita a restauração
 das vidas dos personagens.
 
-![Pokewomon](https://uploaddeimagens.com.br/images/002/064/794/original/header.png?1556211557)
-
 ## Instalação
 
 ### Linux:
